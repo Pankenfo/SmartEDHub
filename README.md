@@ -1,7 +1,4 @@
 <<<<<<< HEAD
-# SmartEdHub
-SmartEdHub_Back-End
-=======
 # SMARTEDHUB
 Maven project generated with com.a9ski:quick-start archetype
 
@@ -29,4 +26,7 @@ or
 cd target
 java -jar xxxx.jar
 ```
->>>>>>> cf6240c (创建了项目框架，写了学生和老师的登陆注册)
+=======
+# SmartEdHub
+SmartEdHub_Back-End
+>>>>>>> 481ecfd (Initial commit)
