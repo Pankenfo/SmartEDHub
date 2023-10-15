@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.smartedhub_server.mapper.QuestionClassMapper">
+
+    <!-- 通用查询映射结果 -->
+    <resultMap id="BaseResultMap" type="com.smartedhub_server.pojo.QuestionClass">
+        <id column="question_class_id" property="questionClassId" />
+        <result column="class_id" property="classId" />
+        <result column="question_id" property="questionId" />
+        <result column="validity" property="validity" />
+    </resultMap>
+
+    <!-- 通用查询结果列 -->
+    <sql id="Base_Column_List">
+        question_class_id, class_id, question_id, validity
+    </sql>
+
+</mapper>

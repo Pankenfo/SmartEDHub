@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.smartedhub_generator.mapper.AnnouncementMapper">
+
+    <!-- 通用查询映射结果 -->
+    <resultMap id="BaseResultMap" type="com.smartedhub_generator.pojo.Announcement">
+        <id column="announcement_id" property="announcementId" />
+        <result column="announcement_title" property="announcementTitle" />
+        <result column="announcement_detail" property="announcementDetail" />
+        <result column="announcement_date" property="announcementDate" />
+        <result column="teacher_id" property="teacherId" />
+        <result column="class_id" property="classId" />
+        <result column="validity" property="validity" />
+    </resultMap>
+
+    <!-- 通用查询结果列 -->
+    <sql id="Base_Column_List">
+        announcement_id, announcement_title, announcement_detail, announcement_date, teacher_id, class_id, validity
+    </sql>
+
+</mapper>

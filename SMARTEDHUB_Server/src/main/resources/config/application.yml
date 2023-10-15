@@ -1,0 +1,24 @@
+server:
+  port: 8090
+
+spring:
+  datasource:
+    driver-class-name: com.mysql.cj.jdbc.Driver
+    url: jdbc:mysql://localhost:3306/SmartEdHub?nullCatalogMeansCurrent=true&useUnicode=true&characterEncoding=utf8&useSSL=false&serverTimezone=GMT%2B8&allowMultiQueries=true
+    #jdbc:mysql://localhost:3306/yeb?nullCatalogMeansCurrent=true&useUnicode=true&characterEncoding=utf8&useSSL=false&serverTimezone=GMT%2B8&allowMultiQueries=true
+    #jdbc:mysql://localhost:3306/yeb?useUnicode=true&characterEncoding=UTF-8&serverTimezone=Asia/Shanghai
+    username: root
+    password: 12345678
+    type: com.alibaba.druid.pool.DruidDataSource
+
+logging:
+  level:
+    org.springframework.web: debug
+    org.springframework.security: debug
+    com.share2renew.mapper: debug
+
+jwt:
+  tokenHeader: Authorization
+  secret: SmartEdHub-secret
+  expiration: 604800
+  tokenHead: SmartEdHub
