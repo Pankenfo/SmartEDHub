@@ -1,3 +1,4 @@
+<<<<<<< HEAD
 # SMARTEDHUB
 Maven project generated with com.a9ski:quick-start archetype
 
@@ -25,3 +26,7 @@ or
 cd target
 java -jar xxxx.jar
 ```
+=======
+# SmartEdHub
+SmartEdHub_Back-End
+>>>>>>> 481ecfd (Initial commit)
