@@ -22,3 +22,15 @@ jwt:
   secret: SmartEdHub-secret
   expiration: 604800
   tokenHead: SmartEdHub
+
+
+ChatGPT:
+  connectionTimeout: 60000
+  readTimeout: 60000
+  # 用于自定义发送类
+  variables:
+    apiKey: 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
+    model: gpt-3.5-turbo
+    temperature: 1
+    maxTokens: 500
+  token: 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

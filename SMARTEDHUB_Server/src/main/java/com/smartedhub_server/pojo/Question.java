@@ -12,6 +12,7 @@ import lombok.experimental.Accessors;
 
 import java.io.Serializable;
 import java.time.LocalDate;
+import java.util.Date;
 
 /**
  * <p>
@@ -28,30 +29,34 @@ import java.time.LocalDate;
 @ApiModel(value="Question对象", description="Storage the details of each question")
 public class Question implements Serializable {
 
-    private static final long serialVersionUID = 1L;
+    protected static final long serialVersionUID = 1L;
 
     @ApiModelProperty(value = "id of question")
     @TableId(value = "question_id", type = IdType.AUTO)
-    private Integer questionId;
+    protected Integer questionId;
 
     @ApiModelProperty(value = "the detail of question")
     @TableField("question_detail")
-    private String questionDetail;
+    protected String questionDetail;
 
     @ApiModelProperty(value = "question title")
     @TableField("question_title")
-    private String questionTitle;
+    protected String questionTitle;
 
     @ApiModelProperty(value = "question date")
     @TableField("question_date")
-    private LocalDate questionDate;
+    protected Date questionDate;
 
     @ApiModelProperty(value = "id of teacher")
     @TableField("teacher_id")
-    private Integer teacherId;
+    protected Integer teacherId;
+
+    @ApiModelProperty(value = "correct answer of MCQ")
+    @TableField("correct_answer")
+    protected String correctAnswer;
 
     @ApiModelProperty(value = "is it valid or not")
-    private Integer validity;
+    protected Integer validity;
 
 
 }
