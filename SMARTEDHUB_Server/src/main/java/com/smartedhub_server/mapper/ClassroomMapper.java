@@ -1,6 +1,7 @@
 package com.smartedhub_server.mapper;
 
 import com.baomidou.mybatisplus.core.mapper.BaseMapper;
+import com.smartedhub_server.pojo.Classroom;
 
 /**
  * <p>
@@ -10,6 +11,6 @@ import com.baomidou.mybatisplus.core.mapper.BaseMapper;
  * @author Junxian Cai
  * @since 2023-10-15
  */
-public interface ClassMapper extends BaseMapper<Class> {
+public interface ClassroomMapper extends BaseMapper<Classroom> {
 
 }

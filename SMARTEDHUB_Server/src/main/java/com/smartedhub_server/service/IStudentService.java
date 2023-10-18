@@ -1,6 +1,7 @@
 package com.smartedhub_server.service;
 
 import com.baomidou.mybatisplus.extension.service.IService;
+import com.smartedhub_server.pojo.Comment;
 import com.smartedhub_server.pojo.GeneralReturn;
 import com.smartedhub_server.pojo.Student;
 import com.smartedhub_server.pojo.UserLoginInfo;

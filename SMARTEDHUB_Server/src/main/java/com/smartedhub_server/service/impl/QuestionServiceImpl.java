@@ -1,10 +1,21 @@
 package com.smartedhub_server.service.impl;
 
+import com.baomidou.mybatisplus.core.conditions.query.LambdaQueryWrapper;
+import com.baomidou.mybatisplus.core.metadata.IPage;
+import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
 import com.smartedhub_server.mapper.QuestionMapper;
+import com.smartedhub_server.pojo.GeneralReturn;
 import com.smartedhub_server.pojo.Question;
 import com.smartedhub_server.service.IQuestionService;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.util.StringUtils;
+
+import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
 
 /**
  * <p>
@@ -17,4 +28,41 @@ import org.springframework.stereotype.Service;
 @Service
 public class QuestionServiceImpl extends ServiceImpl<QuestionMapper, Question> implements IQuestionService {
 
+    @Autowired
+    private QuestionMapper questionMapper;
+    @Override
+    public GeneralReturn createQuestion(Question question) {
+        question.setValidity(1);
+        questionMapper.insert(question);
+        return GeneralReturn.success("create a question successfully");
+    }
+
+    @Override
+    public GeneralReturn GetQuestionById(Integer questionId) {
+        Question question = questionMapper.selectById(questionId);
+        return GeneralReturn.success(question);
+    }
+
+    @Override
+    public GeneralReturn GetAllOrSpecificQuestion(int pageNo, int pageSize, String questionTitle, String questionDetail) {
+        LambdaQueryWrapper<Question> wrapper = new LambdaQueryWrapper<>();
+        wrapper.like(StringUtils.hasLength(questionTitle), Question::getQuestionTitle,questionTitle); //条件查询
+        wrapper.like(StringUtils.hasLength(questionDetail), Question::getQuestionDetail,questionDetail); //条件查询
+        Page<Question> page = new Page<>(pageNo, pageSize);
+        questionMapper.selectPage(page,wrapper);
+        Map<String, Object> data = new HashMap<>();
+        data.put("total", page.getTotal());//查询的总数
+        data.put("rows",page.getRecords());//查询到的数据集
+        return GeneralReturn.success(data);
+    }
+
+    @Override
+    public GeneralReturn GetAllQuestionByClassId(int pageNo, int pageSize, int classId, String questionTitle, String questionDetail) {
+        Page<Question> page = new Page<>(pageNo, pageSize);
+        IPage<Question> iPage = questionMapper.GetAllQuestionByClassId(page, classId);
+        Map<String, Object> data = new HashMap<>();
+        data.put("total", iPage.getTotal());
+        data.put("data",iPage.getRecords());
+        return GeneralReturn.success(data);
+    }
 }
