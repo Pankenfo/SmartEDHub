@@ -1,6 +1,10 @@
 package com.smartedhub_server.Controller;
 
 
+import com.smartedhub_server.service.IAnnouncementService;
+import io.swagger.annotations.ApiOperation;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
