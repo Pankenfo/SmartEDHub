@@ -2,6 +2,7 @@ package com.smartedhub_server.service;
 
 import com.baomidou.mybatisplus.extension.service.IService;
 import com.smartedhub_server.pojo.Announcement;
+import com.smartedhub_server.pojo.GeneralReturn;
 
 /**
  * <p>
@@ -13,4 +14,7 @@ import com.smartedhub_server.pojo.Announcement;
  */
 public interface IAnnouncementService extends IService<Announcement> {
 
+    GeneralReturn CreateAnnouncement(Announcement newAnnouncement);
+
+    GeneralReturn ShowAllOrSpecificAnnouncement(int pageNo, int pageSize, String announcementTitle, String announcementDetail);
 }

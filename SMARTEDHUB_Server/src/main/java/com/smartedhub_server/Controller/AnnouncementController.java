@@ -1,12 +1,12 @@
 package com.smartedhub_server.Controller;
 
 
+import com.smartedhub_server.pojo.Announcement;
+import com.smartedhub_server.pojo.GeneralReturn;
 import com.smartedhub_server.service.IAnnouncementService;
 import io.swagger.annotations.ApiOperation;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 /**
  * <p>
@@ -19,5 +19,23 @@ import org.springframework.web.bind.annotation.RestController;
 @RestController
 @RequestMapping("/announcement")
 public class AnnouncementController {
+    @Autowired
+    private IAnnouncementService iAnnouncementService;
+
+    @PostMapping("/createAnnouncement")
+    @ApiOperation("Create a new announcement")
+    public GeneralReturn CreateAnnouncement(@RequestBody Announcement newAnnouncement){
+        return iAnnouncementService.CreateAnnouncement(newAnnouncement);
+    }
+
+    @GetMapping("/showAllOrSpecificAnnouncement")
+    @ApiOperation("Show All Or Specific Announcement")
+    public GeneralReturn ShowAllOrSpecificAnnouncement(@RequestParam(value = "pageNo") int pageNo,
+                                                       @RequestParam(value = "pageSize") int pageSize,
+                                                       @RequestParam(value = "announcementTitle", required = false) String announcementTitle,
+                                                       @RequestParam(value = "announcementDetail", required = false) String announcementDetail){
+        return iAnnouncementService.ShowAllOrSpecificAnnouncement(pageNo, pageSize, announcementTitle, announcementDetail);
+    }
+
 
 }
