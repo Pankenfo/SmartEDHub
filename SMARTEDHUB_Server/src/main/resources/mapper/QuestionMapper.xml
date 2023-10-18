@@ -17,4 +17,17 @@
         question_id, question_detail, question_title, question_date, teacher_id, validity
     </sql>
 
+    <select id="GetAllQuestionByClassId" resultType="com.smartedhub_server.pojo.Question">
+        SELECT
+            *
+        FROM
+            smartedhub.t_question
+        WHERE
+                question_id IN (SELECT
+                                    question_id
+                                FROM
+                                    smartedhub.t_question_class
+                                WHERE
+                                    class_id = #{classId})
+    </select>
 </mapper>

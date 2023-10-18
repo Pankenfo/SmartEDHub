@@ -24,7 +24,7 @@ import java.io.Serializable;
 @Accessors(chain = true)
 @TableName("t_class")
 @ApiModel(value="Class对象", description="")
-public class Class implements Serializable {
+public class Classroom implements Serializable {
 
     private static final long serialVersionUID = 1L;
 
