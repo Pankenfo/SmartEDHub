@@ -1,6 +1,7 @@
 package com.smartedhub_server.service;
 
 import com.baomidou.mybatisplus.extension.service.IService;
+import com.smartedhub_server.exception.ParamsException;
 import com.smartedhub_server.pojo.Comment;
 import com.smartedhub_server.pojo.GeneralReturn;
 import com.smartedhub_server.pojo.Student;
@@ -24,6 +25,8 @@ public interface IStudentService extends IService<Student> {
      * @return
      */
     Student getStudentByUserName(String userName);
+
+    int getCurrentStudentId() throws ParamsException;
 
     /**
      * For student studentRegister

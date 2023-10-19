@@ -57,14 +57,13 @@ public class GPTController {
      * @param text
      * @return
      */
+    //TODO: 做一个AI生成照片的接口
     @ApiOperation(value = "generateImages")
     @PostMapping("/generateImagesByGPT")
     public List<String> generateImagesByGPT(@RequestParam String text) {
         List<String> image = OpenAiUtils.createImage(text);
         return image;
     }
-
-
 
     /**
      * 用于向GPT发送文本请求 - 生成选择题
