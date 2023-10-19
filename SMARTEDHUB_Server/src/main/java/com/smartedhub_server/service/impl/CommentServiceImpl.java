@@ -22,6 +22,7 @@ public class CommentServiceImpl extends ServiceImpl<CommentMapper, Comment> impl
     private CommentMapper commentMapper;
     @Override
     public GeneralReturn createComment(Comment comment) {
+        //TODO:不能这样，数据库里面也有问题，没有question_id
         comment.setValidity(1);
         commentMapper.insert(comment);
         return GeneralReturn.success("create a comment successfully");

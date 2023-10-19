@@ -46,6 +46,10 @@ public class Comment implements Serializable {
     @TableField("user_id")
     private Integer userId;
 
+    @ApiModelProperty(value = "question id")
+    @TableField("question_id")
+    private Integer questionId;
+
     @ApiModelProperty(value = "count number of like")
     private Integer likes;
 
