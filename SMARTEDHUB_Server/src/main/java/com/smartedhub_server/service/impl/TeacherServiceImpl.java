@@ -11,7 +11,7 @@ import com.smartedhub_server.service.ITeacherService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
-import sun.security.krb5.internal.PAData;
+//import sun.security.krb5.internal.PAData;
 
 /**
  * <p>

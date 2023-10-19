@@ -8,13 +8,14 @@
         <result column="comment_detail" property="commentDetail" />
         <result column="comment_date" property="commentDate" />
         <result column="user_id" property="userId" />
+        <result column="question_id" property="questionId" />
         <result column="likes" property="likes" />
         <result column="validity" property="validity" />
     </resultMap>
 
     <!-- 通用查询结果列 -->
     <sql id="Base_Column_List">
-        comment_id, comment_detail, comment_date, user_id, likes, validity
+        comment_id, comment_detail, comment_date, user_id, question_id, likes, validity
     </sql>
 
 </mapper>

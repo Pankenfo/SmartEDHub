@@ -6,13 +6,13 @@
     <resultMap id="BaseResultMap" type="com.smartedhub_server.pojo.Classroom">
         <id column="class_id" property="classId" />
         <result column="classname" property="classname" />
-        <result column="teacher_id" property="teacherId" />
+        <result column="username" property="username" />
         <result column="validity" property="validity" />
     </resultMap>
 
     <!-- 通用查询结果列 -->
     <sql id="Base_Column_List">
-        class_id, classname, teacher_id, validity
+        class_id, classname, username, validity
     </sql>
 
 </mapper>

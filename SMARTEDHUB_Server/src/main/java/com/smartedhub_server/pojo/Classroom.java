@@ -1,9 +1,6 @@
 package com.smartedhub_server.pojo;
 
-import com.baomidou.mybatisplus.annotation.IdType;
-import com.baomidou.mybatisplus.annotation.TableField;
-import com.baomidou.mybatisplus.annotation.TableId;
-import com.baomidou.mybatisplus.annotation.TableName;
+import com.baomidou.mybatisplus.annotation.*;
 import io.swagger.annotations.ApiModel;
 import lombok.Data;
 import lombok.EqualsAndHashCode;
@@ -33,9 +30,11 @@ public class Classroom implements Serializable {
 
     private String classname;
 
-    @TableField("teacher_id")
-    private Integer teacherId;
+    @TableField("username")
+    private String username;
 
+    @TableLogic(value="1",delval="0")
+    //value为正常数据的值，delval为删除数据的值
     private Integer validity;
 
 

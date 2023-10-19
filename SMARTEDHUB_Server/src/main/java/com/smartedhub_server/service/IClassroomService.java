@@ -15,4 +15,10 @@ import com.smartedhub_server.pojo.GeneralReturn;
 public interface IClassroomService extends IService<Classroom> {
 
     GeneralReturn CreateClass(Classroom newclass);
+
+    GeneralReturn GetAllOrSpecificClassroom(int pageNo, int pageSize, String classname, String username);
+
+    GeneralReturn DeleteClassroom(Integer classroomId);
+
+    //GeneralReturn GetAllOrSpecificClassroom(int pageNo, int pageSize, String classname);
 }
