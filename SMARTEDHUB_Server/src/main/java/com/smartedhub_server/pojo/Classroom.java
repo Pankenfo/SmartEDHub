@@ -22,7 +22,7 @@ import java.io.Serializable;
 @Data
 @EqualsAndHashCode(callSuper = false)
 @Accessors(chain = true)
-@TableName("t_class")
+@TableName("t_classroom")
 @ApiModel(value="Class对象", description="")
 public class Classroom implements Serializable {
 
