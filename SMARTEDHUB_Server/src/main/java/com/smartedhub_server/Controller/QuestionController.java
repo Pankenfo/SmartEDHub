@@ -65,4 +65,10 @@ public class QuestionController {
     public GeneralReturn createQuestion(@RequestBody Question question){
         return iQuestionService.createQuestion(question);
     }
+
+    @PostMapping("/getQuestionById")
+    @ApiOperation("Get a question by id")
+    public GeneralReturn GetQuestionById(@RequestParam Integer questionId){
+        return iQuestionService.GetQuestionById(questionId);
+    }
 }

@@ -20,17 +20,4 @@ import org.springframework.web.bind.annotation.*;
 @RequestMapping("/teacher")
 public class TeacherController {
 
-    @Autowired
-    private IQuestionService iquestionService;
-
-
-
-
-    @PostMapping("/getQuestionById")
-    @ApiOperation("Get a question by id")
-    public GeneralReturn GetQuestionById(@RequestParam Integer questionId){
-        return iquestionService.GetQuestionById(questionId);
-    }
-
-
 }
