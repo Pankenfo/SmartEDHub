@@ -3,6 +3,7 @@ package com.smartedhub_server.service.impl;
 import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
 import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
 import com.smartedhub_server.config.security.JwtTokenUtil;
+import com.smartedhub_server.exception.ParamsException;
 import com.smartedhub_server.mapper.StudentMapper;
 import com.smartedhub_server.pojo.GeneralReturn;
 import com.smartedhub_server.pojo.Student;
@@ -13,6 +14,7 @@ import com.smartedhub_server.service.ITeacherService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
+import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UserDetailsService;
@@ -51,6 +53,26 @@ public class StudentServiceImpl extends ServiceImpl<StudentMapper, Student> impl
     @Override
     public Student getStudentByUserName(String userName) {
         return studentMapper.selectOne(new QueryWrapper<Student>().eq("username", userName).eq("validity", true));
+    }
+
+    /**
+     * Get current studentId
+     * @return
+     */
+    @Override
+    public int getCurrentStudentId() throws ParamsException {
+            Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
+            if (authentication != null && authentication.getPrincipal() != null) {
+                Object principal = authentication.getPrincipal();
+                if (principal instanceof UserDetails) {
+                    String username = ((UserDetails) principal).getUsername();
+                    Student student = getStudentByUserName(username);
+                    if (student != null) {
+                        return student.getStudentId();
+                    }
+                }
+            }
+            throw new ParamsException();
     }
 
     /**
