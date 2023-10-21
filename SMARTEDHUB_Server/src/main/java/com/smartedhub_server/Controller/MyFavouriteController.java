@@ -25,8 +25,16 @@ public class MyFavouriteController {
     @PutMapping("/addToFavourite")
     @ApiOperation("add a question to myFavourite")
     public GeneralReturn AddToFvourite(@RequestParam(value = "questionId") int questionId,
-                                       @RequestParam(value = "studentId") int studentId){
-        return iMyFavouriteService.AddToFvourite(questionId,studentId);
+                                       @RequestParam(value = "username") String username){
+        return iMyFavouriteService.AddToFvourite(questionId,username);
+
+    }
+
+    @DeleteMapping("/cancelFavourite")
+    @ApiOperation("Cancel a favourite question")
+    public GeneralReturn CancelFavourite(@RequestParam(value = "questionId") int questionId,
+                                         @RequestParam(value = "username") String username){
+        return iMyFavouriteService.CancelFavourite(questionId,username);
 
     }
 }

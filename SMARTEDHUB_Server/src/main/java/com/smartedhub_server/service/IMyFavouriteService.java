@@ -19,7 +19,9 @@ public interface IMyFavouriteService extends IService<MyFavourite> {
      * @param studentId 学生ID
      * @return 返回为0 插入失败 不为0 成功
      */
-    public int CreateMyFavourite(int studentId);
+    public int CreateMyFavourite(String username);
 
-    GeneralReturn AddToFvourite(int questionId, int studentId);
+    GeneralReturn AddToFvourite(int questionId, String username);
+
+    GeneralReturn CancelFavourite(int questionId, String username);
 }
