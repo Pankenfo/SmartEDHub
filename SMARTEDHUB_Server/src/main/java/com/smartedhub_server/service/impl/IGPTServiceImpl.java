@@ -51,14 +51,21 @@ public class IGPTServiceImpl implements IGPTService {
      * @return
      */
     @Override
-    public GeneralReturn sendText(String prompt) {
-        return getMCQ(prompt);
+    public GeneralReturn sendText(String prompt, String username) {
+        return getMCQ(prompt, username);
     }
 
-    public GeneralReturn getMCQ (String prompt) {
+    /**
+     * 获得并处理GPT返回的数据
+     * @param prompt
+     * @return
+     */
+    public GeneralReturn getMCQ (String prompt, String username) {
         JSONObject bodyJson = new JSONObject();
         Message message = new Message();
-        message.setContent(prompt);
+//        String questionByUser = "按照题目写一行，四个选项分别一行和正确答案一行的形式，生成一道" + prompt + "选择题";
+        String questionByUser = "In the form of writing one line for the question, one line for each of the four options and one line for the correct answer, generate an " + prompt + " multiple-choice question in english";
+        message.setContent(questionByUser);
         message.setRole("system");
         ArrayList<Message> messages = new ArrayList<>();
         messages.add(message);
@@ -81,8 +88,6 @@ public class IGPTServiceImpl implements IGPTService {
 
 //        return gptResponse.getChoices().get(0).getGptMessage().getContent().replaceAll("\n", "");
 
-//        return gptResponse.getChoices().get(0).getMessage().getContent().replaceAll("\n", "");
-
         //提取GPT生成的选择题
         String messageByGPT = gptResponse.getChoices().get(0).getMessage().getContent();
         System.out.println("=========================");
@@ -98,20 +103,24 @@ public class IGPTServiceImpl implements IGPTService {
             List<String> options = new ArrayList<>();
             String details = "";
             for (String line : lines) {
-                if (line.startsWith("A.")) {
+                if (line.startsWith("A")) {
                     details = details + line + " ";
-                } else if (line.startsWith("B.")) {
+                } else if (line.startsWith("B")) {
                     details = details + line + " ";
-                } else if (line.startsWith("C.")) {
+                } else if (line.startsWith("C")) {
                     details = details + line + " ";
-                } else if (line.startsWith("D.")) {
+                } else if (line.startsWith("D")) {
                     details = details + line + " ";
                     break;
                 }
             }
             question.setQuestionDetail(details);
             question.setQuestionDate(new Date());
+            //这里我甚至可以将"正确答案:"去掉，只留下正确的选项
             question.setCorrectAnswer(lines[lines.length - 1]);
+            question.setLikes(0);
+            question.setUsername(username);
+            question.setQuestionType(1);
             question.setValidity(1);
 
             //将题目存入数据库
@@ -123,6 +132,5 @@ public class IGPTServiceImpl implements IGPTService {
         }
         return GeneralReturn.error("Insert question failed");
     }
-
 
 }

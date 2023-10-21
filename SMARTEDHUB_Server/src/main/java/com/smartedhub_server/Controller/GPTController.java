@@ -13,6 +13,7 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
 import javax.servlet.http.HttpServletResponse;
+import java.security.Principal;
 import java.util.List;
 
 /**
@@ -31,14 +32,19 @@ public class GPTController {
     private IGPTService gptService;
 
     /**
-     * 用于向GPT发送文本请求
+     * 用于向GPT发送文本请求 - 设计用于生成MCQ
      * @param text
      * @return
      */
-    @ApiOperation(value = "sendTextToGPT")
-    @PostMapping("/sendTextToGPT")
-    public GeneralReturn sendTextToGPT(String text) {
-        return gptService.sendText(text);
+    //TODO: 改成我们写好语句然后封装发给GPT，前端只需要传输选择题的内容
+    @ApiOperation(value = "generateMCQ")
+    @PostMapping("/generateMCQ")
+    public GeneralReturn sendTextToGPT(@RequestParam String text, Principal principal) {
+        if (principal != null) {
+            String username = principal.getName();
+            return gptService.sendText(text, username);
+        }
+        return GeneralReturn.error("Please login first!");
     }
 
     /**
@@ -57,7 +63,7 @@ public class GPTController {
      * @param text
      * @return
      */
-    //TODO: 做一个AI生成照片的接口
+    //TODO: 可以改这个接口拿来做智能生成头像的功能！！
     @ApiOperation(value = "generateImages")
     @PostMapping("/generateImagesByGPT")
     public List<String> generateImagesByGPT(@RequestParam String text) {
@@ -66,14 +72,16 @@ public class GPTController {
     }
 
     /**
-     * 用于向GPT发送文本请求 - 生成选择题
+     * Translation
      * @param text
      * @return
      */
-//    @ApiOperation(value = "sendTextToGPTGeneratedMCQ")
-//    @PostMapping("/sendTextToGPTGeneratedMCQ")
-//    public String sendTextToGPTGeneratedMCQ(String text) {
-//        return gptService.sendTextGeneratedMCQ(text);
-//    }
+    //TODO: 做一个智能翻译功能
+//    @ApiOperation(value = "translation")
+//    @PostMapping("/translation")
+//
+
+
+
 
 }
