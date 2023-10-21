@@ -27,23 +27,46 @@ public class MyFavouriteServiceImpl extends ServiceImpl<MyFavouriteMapper, MyFav
     private MyFavouriteMapper myFavouriteMapper;
     @Autowired
     private QuestionMyFavouriteMapper questionMyFavouriteMapper;
-    public int CreateMyFavourite(int studentId){
+    public int CreateMyFavourite(String username){
         MyFavourite myFavourite = new MyFavourite();
         myFavourite.setValidity(1);
-        myFavourite.setStudentId(studentId);
+        myFavourite.setUsername(username);
         return myFavouriteMapper.insert(myFavourite);
     }
 
     @Override
-    public GeneralReturn AddToFvourite(int questionId, int studentId) {
+    public GeneralReturn AddToFvourite(int questionId, String username) {
         QuestionMyFavourite questionMyFavourite = new QuestionMyFavourite();
         LambdaQueryWrapper<MyFavourite> wrapper = new LambdaQueryWrapper<>();
-        wrapper.eq(MyFavourite::getStudentId,studentId);
+        LambdaQueryWrapper<QuestionMyFavourite> wrapper2 = new LambdaQueryWrapper<>();
+        wrapper.eq(MyFavourite::getUsername,username);
         questionMyFavourite.setQuestionId(questionId);
         questionMyFavourite.setMyfavouriteId(myFavouriteMapper.selectOne(wrapper).getMyfavouriteId());
-        questionMyFavourite.setValidity(1);
-        questionMyFavouriteMapper.insert(questionMyFavourite);
-        return GeneralReturn.success("Add to MyFavourite successfully");
+
+        wrapper2.eq(QuestionMyFavourite::getQuestionId,questionId);
+        wrapper2.eq(QuestionMyFavourite::getMyfavouriteId,myFavouriteMapper.selectOne(wrapper).getMyfavouriteId());
+        if(questionMyFavouriteMapper.exists(wrapper2))
+        {
+            return GeneralReturn.error("It has been added to MyFavourite");
+        }
+        else {
+            questionMyFavourite.setValidity(1);
+            questionMyFavouriteMapper.insert(questionMyFavourite);
+            return GeneralReturn.success("Add to MyFavourite successfully");
+        }
+    }
+
+    @Override
+    public GeneralReturn CancelFavourite(int questionId, String username) {
+        LambdaQueryWrapper<MyFavourite> wrapper = new LambdaQueryWrapper<>();
+        wrapper.eq(MyFavourite::getUsername,username);
+        myFavouriteMapper.selectOne(wrapper);
+
+        LambdaQueryWrapper<QuestionMyFavourite> wrapper2 = new LambdaQueryWrapper<>();
+        wrapper2.eq(QuestionMyFavourite::getMyfavouriteId,myFavouriteMapper.selectOne(wrapper).getMyfavouriteId())
+                        .eq(QuestionMyFavourite::getQuestionId,questionId);
+        questionMyFavouriteMapper.delete(wrapper2);
+        return GeneralReturn.success("Cancel successfully");
     }
 
 }

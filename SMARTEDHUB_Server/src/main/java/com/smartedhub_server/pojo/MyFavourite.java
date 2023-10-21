@@ -33,9 +33,9 @@ public class MyFavourite implements Serializable {
     @TableId(value = "myfavourite_id", type = IdType.AUTO)
     private Integer myfavouriteId;
 
-    @ApiModelProperty(value = "id of student")
-    @TableField("student_id")
-    private Integer studentId;
+    @ApiModelProperty(value = "username of student")
+    @TableField("username")
+    private String username;
 
     @ApiModelProperty(value = "is it valid or not")
     private Integer validity;
