@@ -8,26 +8,16 @@
         <result column="question_detail" property="questionDetail" />
         <result column="question_title" property="questionTitle" />
         <result column="question_date" property="questionDate" />
-        <result column="teacher_id" property="teacherId" />
+        <result column="username" property="username" />
+        <result column="correct_answer" property="correctAnswer" />
+        <result column="likes" property="likes" />
+        <result column="question_type" property="questionType" />
         <result column="validity" property="validity" />
     </resultMap>
 
     <!-- 通用查询结果列 -->
     <sql id="Base_Column_List">
-        question_id, question_detail, question_title, question_date, teacher_id, validity
+        question_id, question_detail, question_title, question_date, username, correct_answer, likes, question_type, validity
     </sql>
 
-    <select id="GetAllQuestionByClassId" resultType="com.smartedhub_server.pojo.Question">
-        SELECT
-            *
-        FROM
-            smartedhub.t_question
-        WHERE
-                question_id IN (SELECT
-                                    question_id
-                                FROM
-                                    smartedhub.t_question_class
-                                WHERE
-                                    class_id = #{classId})
-    </select>
 </mapper>

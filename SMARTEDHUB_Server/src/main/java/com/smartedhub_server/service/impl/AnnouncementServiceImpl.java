@@ -28,9 +28,10 @@ public class AnnouncementServiceImpl extends ServiceImpl<AnnouncementMapper, Ann
     private AnnouncementMapper announcementMapper;
 
     @Override
-    public GeneralReturn CreateAnnouncement(Announcement newAnnouncement) {
-        newAnnouncement.setValidity(1);
-        announcementMapper.insert(newAnnouncement);
+    public GeneralReturn CreateAnnouncement(Announcement announcement) {
+        //TODO:改一下，将时间，aid，tid都由后端来设置好，只需要写title和detail和classId
+        announcement.setValidity(1);
+        announcementMapper.insert(announcement);
         return GeneralReturn.success("Create new announcement successfully");
     }
 

@@ -24,8 +24,8 @@ public class AnnouncementController {
 
     @PostMapping("/createAnnouncement")
     @ApiOperation("Create a new announcement")
-    public GeneralReturn CreateAnnouncement(@RequestBody Announcement newAnnouncement){
-        return iAnnouncementService.CreateAnnouncement(newAnnouncement);
+    public GeneralReturn CreateAnnouncement(@RequestBody Announcement announcement){
+        return iAnnouncementService.CreateAnnouncement(announcement);
     }
 
     @GetMapping("/showAllOrSpecificAnnouncement")

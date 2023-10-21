@@ -10,5 +10,5 @@ public interface IGPTService {
      * @param text
      * @return
      */
-    GeneralReturn sendText(String text);
+    GeneralReturn sendText(String text, String username);
 }
