@@ -7,6 +7,7 @@ import com.smartedhub_server.pojo.Admin;
 import com.smartedhub_server.pojo.Student;
 import com.smartedhub_server.pojo.Teacher;
 import com.smartedhub_server.service.IStudentService;
+import com.smartedhub_server.service.ITeacherService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
@@ -31,6 +32,8 @@ public class SpringSecurityConfig extends WebSecurityConfigurerAdapter {
 
     @Autowired
     private IStudentService studentService;
+    @Autowired
+    private ITeacherService teacherService;
     @Autowired
     private RestAuthorizationEntryPoint restAuthorizationEntryPoint;
     @Autowired
@@ -76,12 +79,14 @@ public class SpringSecurityConfig extends WebSecurityConfigurerAdapter {
              * 最后，请确保您在配置Spring Security时正确处理了这两种用户的权限和角色。
              *
              */
-//            Teacher teacher = studentService.getTeacherByUserName(userName);
+            Teacher teacher = teacherService.getTeacherByUserName(userName);
             Student student = studentService.getStudentByUserName(userName);
 //            Admin admin = studentService.getAdminByUserName(userName);
 
             if (null != student) {
                 return student;
+            } else if (null != teacher) {
+                return teacher;
             }
             return null;
         };

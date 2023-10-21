@@ -41,5 +41,5 @@ public interface IStudentService extends IService<Student> {
      * @param request
      * @return
      */
-    GeneralReturn studentLogin(String username, String password, HttpServletRequest request);
+    GeneralReturn studentOrTeacherLogin(String username, String password, HttpServletRequest request);
 }
