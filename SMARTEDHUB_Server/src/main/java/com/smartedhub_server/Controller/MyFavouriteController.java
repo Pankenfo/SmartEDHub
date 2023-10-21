@@ -1,8 +1,12 @@
 package com.smartedhub_server.Controller;
 
 
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import com.smartedhub_server.pojo.GeneralReturn;
+import com.smartedhub_server.pojo.MyFavourite;
+import com.smartedhub_server.service.IMyFavouriteService;
+import io.swagger.annotations.ApiOperation;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.web.bind.annotation.*;
 
 /**
  * <p>
@@ -15,5 +19,14 @@ import org.springframework.web.bind.annotation.RestController;
 @RestController
 @RequestMapping("/my-favourite")
 public class MyFavouriteController {
+    @Autowired
+    private IMyFavouriteService iMyFavouriteService;
 
+    @PutMapping("/addToFavourite")
+    @ApiOperation("add a question to myFavourite")
+    public GeneralReturn AddToFvourite(@RequestParam(value = "questionId") int questionId,
+                                       @RequestParam(value = "studentId") int studentId){
+        return iMyFavouriteService.AddToFvourite(questionId,studentId);
+
+    }
 }

@@ -1,6 +1,7 @@
 package com.smartedhub_server.service;
 
 import com.baomidou.mybatisplus.extension.service.IService;
+import com.smartedhub_server.pojo.GeneralReturn;
 import com.smartedhub_server.pojo.MyFavourite;
 
 /**
@@ -13,4 +14,12 @@ import com.smartedhub_server.pojo.MyFavourite;
  */
 public interface IMyFavouriteService extends IService<MyFavourite> {
 
+    /**
+     * 新建用户自动生成一个收藏夹
+     * @param studentId 学生ID
+     * @return 返回为0 插入失败 不为0 成功
+     */
+    public int CreateMyFavourite(int studentId);
+
+    GeneralReturn AddToFvourite(int questionId, int studentId);
 }
