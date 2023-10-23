@@ -19,7 +19,7 @@ public interface IStudentClassService extends IService<StudentClass> {
 
     GeneralReturn ShowClassDetail(Integer classId);
 
-    GeneralReturn ShowTeacherClassList(String teaUsername);
+    GeneralReturn ShowTeacherClassList(String teaUsername,String classname);
 
     Long CountStudent(Integer classId);
 }

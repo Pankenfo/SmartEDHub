@@ -14,5 +14,30 @@
     <sql id="Base_Column_List">
         class_id, classname, username, validity
     </sql>
+    <select id="StudentGetClassroom" resultType="com.smartedhub_server.pojo.Classroom">
+        <bind name="pattern" value="'%' + classname + '%'" />
+        SELECT
+            *
+        FROM
+            smartedhub.t_classroom
+        WHERE
+                class_id IN (SELECT
+                                 class_id
+                             FROM
+                                 smartedhub.t_student_class
+                             WHERE
+                                 student_id = #{studentId}) AND classname like #{pattern}
+    </select>
+
+    <select id="TeacherGetClassroom" resultType="com.smartedhub_server.pojo.Classroom">
+        <bind name="pattern" value="'%' + classname + '%'" />
+        SELECT
+        *
+        FROM
+        t_classroom
+        WHERE
+        username = #{username} AND classname LIKE #{pattern}
+    </select>
+
 
 </mapper>

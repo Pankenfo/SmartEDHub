@@ -12,6 +12,8 @@ import io.swagger.models.auth.In;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
+import java.security.Principal;
+
 /**
  * <p>
  *  前端控制器
@@ -30,10 +32,15 @@ public class ClassroomController {
     @Autowired
     private IStudentClassService iStudentClassService;
 
+    //TODO
     @PostMapping("/createClassroom")
     @ApiOperation("Create a new classroom")
-    public GeneralReturn CreateClass(@RequestBody Classroom newClassroom){
-        return iClassroomService.CreateClass(newClassroom);
+    public GeneralReturn CreateClass(@RequestBody Classroom newClassroom, Principal principal){
+        if(principal == null){
+            return GeneralReturn.error("Please login first");
+        }
+        String username = principal.getName();
+        return iClassroomService.CreateClass(newClassroom,username);
     }
 
 //    @GetMapping("/getAllOrSpecificClassroom")
@@ -44,14 +51,13 @@ public class ClassroomController {
 //        return iClassroomService.GetAllOrSpecificClassroom(pageNo,pageSize,classname);
 //    }
 
-    @GetMapping("/getAllOrSpecificClassroom")
-    @ApiOperation("Get all or specific classroom")
-    public GeneralReturn GetAllOrSpecificClassroom(@RequestParam(value = "pageNo") int pageNo,
-                                                   @RequestParam(value = "pageSize") int pageSize,
-                                                   @RequestParam(value = "classname", required = false) String classname,
-                                                   @RequestParam(value = "Teacherusername", required = false) String username){
-        return iClassroomService.GetAllOrSpecificClassroom(pageNo,pageSize,classname,username);
+    @GetMapping("/studentGetClassroomList")
+    @ApiOperation("Student get their list of class")
+    public GeneralReturn StudentGetClassroom(@RequestParam(value = "classname", required = false) String classname,
+                                             @RequestParam(value = "studentId") Integer studentId){
+        return iClassroomService.StudentGetClassroom(classname,studentId);
     }
+
 
     @DeleteMapping("/deleteClassroom")
     @ApiOperation(value = "Delete a classroom")
@@ -72,10 +78,11 @@ public class ClassroomController {
         return iStudentClassService.ShowClassDetail(classId);
     }
 
-    @GetMapping("/showTeacherClassList")
-    @ApiOperation("Show the list of class")
-    public GeneralReturn ShowTeacherClassList(@RequestParam(value = "teacherUsername") String teaUsername){
-        return iStudentClassService.ShowTeacherClassList(teaUsername);
+    @GetMapping("/teacherGetClassroomList")
+    @ApiOperation("Teachers get their list of class")
+    public GeneralReturn ShowTeacherClassList(@RequestParam(value = "classname", required = false) String classname,
+                                              @RequestParam(value = "teacherUsername") String teaUsername){
+        return iStudentClassService.ShowTeacherClassList(teaUsername,classname);
     }
 
     @GetMapping("/countStudent")
