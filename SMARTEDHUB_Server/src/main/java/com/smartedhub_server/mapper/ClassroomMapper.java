@@ -2,6 +2,9 @@ package com.smartedhub_server.mapper;
 
 import com.baomidou.mybatisplus.core.mapper.BaseMapper;
 import com.smartedhub_server.pojo.Classroom;
+import com.smartedhub_server.pojo.Question;
+
+import java.util.List;
 
 /**
  * <p>
@@ -13,4 +16,7 @@ import com.smartedhub_server.pojo.Classroom;
  */
 public interface ClassroomMapper extends BaseMapper<Classroom> {
 
+    List<Classroom> StudentGetClassroom(String classname,Integer studentId);
+
+    List<Classroom> TeacherGetClassroom(String classname,String username);
 }

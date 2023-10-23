@@ -51,10 +51,8 @@ public class StudentClassServiceImpl extends ServiceImpl<StudentClassMapper, Stu
 
     
     @Override
-    public GeneralReturn ShowTeacherClassList(String teaUsername) {
-        LambdaQueryWrapper<Classroom> wrapper = new LambdaQueryWrapper<>();
-        wrapper.eq(Classroom::getUsername,teaUsername);
-        return GeneralReturn.success(classroomMapper.selectList(wrapper));
+    public GeneralReturn ShowTeacherClassList(String teaUsername,String classname) {
+        return GeneralReturn.success(classroomMapper.TeacherGetClassroom(classname,teaUsername));
     }
 
     @Override

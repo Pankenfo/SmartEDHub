@@ -35,32 +35,25 @@ public class ClassroomServiceImpl extends ServiceImpl<ClassroomMapper, Classroom
     private TeacherMapper teacherMapper;
 
     @Override
-    public GeneralReturn CreateClass(Classroom newclass) {
-        String classname = newclass.getClassname();
+    public GeneralReturn CreateClass(Classroom newclassroom, String username) {
+        String classname = newclassroom.getClassname();
         QueryWrapper query = new QueryWrapper<>();
         query.eq("classname",classname);
         if(classroomMapper.selectCount(query) > 0){
             return GeneralReturn.error("The classname has existed, please choose another one");
         }
         else {
-            newclass.setValidity(1);
-            classroomMapper.insert(newclass);
+            newclassroom.setUsername(username);
+            newclassroom.setValidity(1);
+            classroomMapper.insert(newclassroom);
             return GeneralReturn.success("successfully");
         }
 
     }
 
     @Override
-    public GeneralReturn GetAllOrSpecificClassroom(int pageNo, int pageSize, String classname, String username) {
-        LambdaQueryWrapper<Classroom> wrapper = new LambdaQueryWrapper<>();
-        wrapper.like(StringUtils.hasLength(classname), Classroom::getClassname,classname); //条件查询
-        wrapper.like(StringUtils.hasLength(username), Classroom::getUsername,username); //条件查询
-        Page<Classroom> page = new Page<>(pageNo, pageSize);
-        classroomMapper.selectPage(page,wrapper);
-        Map<String, Object> data = new HashMap<>();
-        data.put("total", page.getTotal());//查询的总数
-        data.put("rows",page.getRecords());//查询到的数据集
-        return GeneralReturn.success(data);
+    public GeneralReturn StudentGetClassroom(String classname, Integer studentId) {
+        return GeneralReturn.success(classroomMapper.StudentGetClassroom(classname,studentId));
     }
 
     @Override
@@ -68,7 +61,6 @@ public class ClassroomServiceImpl extends ServiceImpl<ClassroomMapper, Classroom
         classroomMapper.deleteById(classroomId);
         return GeneralReturn.success("Delete successfully");
     }
-
 
 
 //    @Override
