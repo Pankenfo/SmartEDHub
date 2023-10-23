@@ -9,6 +9,7 @@ import com.smartedhub_server.pojo.GeneralReturn;
 import com.smartedhub_server.pojo.Student;
 import com.smartedhub_server.pojo.Teacher;
 import com.smartedhub_server.pojo.UserLoginInfo;
+import com.smartedhub_server.service.IMyFavouriteService;
 import com.smartedhub_server.service.IStudentService;
 import com.smartedhub_server.service.ITeacherService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -47,6 +48,8 @@ public class StudentServiceImpl extends ServiceImpl<StudentMapper, Student> impl
     private UserDetailsService userDetailsService;
     @Autowired
     private JwtTokenUtil jwtTokenUtil;
+    @Autowired
+    private IMyFavouriteService iMyFavouriteService; //新用户注册自动创建收藏夹 kevin
     @Value("${jwt.tokenHead}")
     private String tokenHead;
 
@@ -93,6 +96,7 @@ public class StudentServiceImpl extends ServiceImpl<StudentMapper, Student> impl
 
             int result = studentMapper.insert(student);
             if (result == 1) {
+                iMyFavouriteService.CreateMyFavourite(student.getUsername());
                 return GeneralReturn.success("Register successfully");
             } else {
                 return GeneralReturn.error("Register failed");

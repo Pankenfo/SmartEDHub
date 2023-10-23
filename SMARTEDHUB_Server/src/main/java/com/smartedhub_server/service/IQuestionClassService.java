@@ -1,6 +1,7 @@
 package com.smartedhub_server.service;
 
 import com.baomidou.mybatisplus.extension.service.IService;
+import com.smartedhub_server.pojo.GeneralReturn;
 import com.smartedhub_server.pojo.QuestionClass;
 
 /**
@@ -13,4 +14,5 @@ import com.smartedhub_server.pojo.QuestionClass;
  */
 public interface IQuestionClassService extends IService<QuestionClass> {
 
+    GeneralReturn AllocateQuestion(Integer questionId, Integer classId);
 }

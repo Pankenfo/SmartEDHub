@@ -37,4 +37,10 @@ public class MyFavouriteController {
         return iMyFavouriteService.CancelFavourite(questionId,username);
 
     }
+
+    @GetMapping("/listMyFavourite")
+    @ApiOperation("Show the list of Myfavourite")
+    public GeneralReturn ListMyFavourite(@RequestParam(value = "username") String username){
+        return iMyFavouriteService.ListMyFavourite(username);
+    }
 }
