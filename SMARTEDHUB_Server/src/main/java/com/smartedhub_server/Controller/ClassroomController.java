@@ -1,14 +1,16 @@
 package com.smartedhub_server.Controller;
 
 
+import com.fasterxml.jackson.core.base.GeneratorBase;
 import com.smartedhub_server.pojo.Classroom;
 import com.smartedhub_server.pojo.GeneralReturn;
 import com.smartedhub_server.service.IClassroomService;
+import com.smartedhub_server.service.IStudentClassService;
+import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
+import io.swagger.models.auth.In;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
-
-import java.security.Principal;
 
 /**
  * <p>
@@ -25,20 +27,13 @@ public class ClassroomController {
     @Autowired
     private IClassroomService iClassroomService;
 
-    /**
-     * Create a new classroom - 10-22 jimmy改了username的加入添加方法
-     * @param newClassroom
-     * @param principal
-     * @return
-     */
+    @Autowired
+    private IStudentClassService iStudentClassService;
+
     @PostMapping("/createClassroom")
     @ApiOperation("Create a new classroom")
-    public GeneralReturn CreateClass(@RequestBody Classroom newClassroom, Principal principal){
-        if (principal == null) {
-            return GeneralReturn.error("Please login first");
-        }
-        String username = principal.getName();
-        return iClassroomService.CreateClass(newClassroom, username);
+    public GeneralReturn CreateClass(@RequestBody Classroom newClassroom){
+        return iClassroomService.CreateClass(newClassroom);
     }
 
 //    @GetMapping("/getAllOrSpecificClassroom")
@@ -62,5 +57,30 @@ public class ClassroomController {
     @ApiOperation(value = "Delete a classroom")
     public GeneralReturn DeleteClassroom(@RequestParam(value = "classroomId") Integer classroomId){
         return iClassroomService.DeleteClassroom(classroomId);
+    }
+
+    @PostMapping("/addToClassroom")
+    @ApiOperation("Add a student to classroom ")
+    public GeneralReturn AddToClassroom(@RequestParam(value = "studentId") Integer studentId,
+                                        @RequestParam(value = "classId") Integer classId) {
+        return iStudentClassService.AddToClassroom(studentId, classId);
+    }
+
+    @GetMapping("/showClassDetail")
+    @ApiOperation("Shwo the detail of the classroon")
+    public GeneralReturn ShowClassDetail(@RequestParam(value = "classId") Integer classId){
+        return iStudentClassService.ShowClassDetail(classId);
+    }
+
+    @GetMapping("/showTeacherClassList")
+    @ApiOperation("Show the list of class")
+    public GeneralReturn ShowTeacherClassList(@RequestParam(value = "teacherUsername") String teaUsername){
+        return iStudentClassService.ShowTeacherClassList(teaUsername);
+    }
+
+    @GetMapping("/countStudent")
+    @ApiOperation("Count the number of students")
+    public Long CountStudent(@RequestParam(value = "classId") Integer classId){
+        return iStudentClassService.CountStudent(classId);
     }
 }

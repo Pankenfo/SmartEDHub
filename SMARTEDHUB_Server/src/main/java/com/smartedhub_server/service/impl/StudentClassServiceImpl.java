@@ -49,7 +49,7 @@ public class StudentClassServiceImpl extends ServiceImpl<StudentClassMapper, Stu
         return GeneralReturn.success(studentClassMapper.selectList(wrapper));
     }
 
-
+    
     @Override
     public GeneralReturn ShowTeacherClassList(String teaUsername) {
         LambdaQueryWrapper<Classroom> wrapper = new LambdaQueryWrapper<>();

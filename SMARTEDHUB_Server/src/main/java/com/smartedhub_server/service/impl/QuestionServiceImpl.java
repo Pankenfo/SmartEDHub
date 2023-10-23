@@ -45,10 +45,9 @@ public class QuestionServiceImpl extends ServiceImpl<QuestionMapper, Question> i
     }
 
     @Override
-    public GeneralReturn GetAllOrSpecificQuestion(int pageNo, int pageSize, String questionTitle, String questionDetail) {
+    public GeneralReturn GetAllOrSpecificQuestion(int pageNo, int pageSize, String questionTitle) {
         LambdaQueryWrapper<Question> wrapper = new LambdaQueryWrapper<>();
         wrapper.like(StringUtils.hasLength(questionTitle), Question::getQuestionTitle,questionTitle); //条件查询
-        wrapper.like(StringUtils.hasLength(questionDetail), Question::getQuestionDetail,questionDetail); //条件查询
         Page<Question> page = new Page<>(pageNo, pageSize);
         questionMapper.selectPage(page,wrapper);
         Map<String, Object> data = new HashMap<>();
@@ -58,9 +57,9 @@ public class QuestionServiceImpl extends ServiceImpl<QuestionMapper, Question> i
     }
 
     @Override
-    public GeneralReturn GetAllQuestionByClassId(int pageNo, int pageSize, int classId, String questionTitle, String questionDetail) {
+    public GeneralReturn GetAllQuestionByClassId(int pageNo, int pageSize, int classId, String questionTitle) {
         Page<Question> page = new Page<>(pageNo, pageSize);
-        IPage<Question> iPage = questionMapper.GetAllQuestionByClassId(page, classId);
+        IPage<Question> iPage = questionMapper.GetAllQuestionByClassId(page, classId,questionTitle);
         Map<String, Object> data = new HashMap<>();
         data.put("total", iPage.getTotal());
         data.put("data",iPage.getRecords());
@@ -82,6 +81,22 @@ public class QuestionServiceImpl extends ServiceImpl<QuestionMapper, Question> i
             questionMapper.CancelLike(questionId);
             return (questionMapper.selectById(questionId).getLikes());
         }
+    }
+
+    @Override
+    public GeneralReturn GetAllQuestionByClassIdNoPage(int classId, String questionTitle) {
+        questionMapper.GetAllQuestionByClassIdNopage(classId,questionTitle);
+        return GeneralReturn.success(questionMapper.GetAllQuestionByClassIdNopage(classId,questionTitle));
+    }
+
+    @Override
+    public GeneralReturn GetAllOrSpecificQuestionNoPage(String questionTitle) {
+        LambdaQueryWrapper<Question> wrapper = new LambdaQueryWrapper<>();
+        wrapper.like(StringUtils.hasLength(questionTitle), Question::getQuestionTitle,questionTitle); //条件查询
+        Map<String, Object> data = new HashMap<>();
+        data.put("total", questionMapper.selectCount(wrapper));//查询的总数
+        data.put("rows",questionMapper.selectList(wrapper));//查询到的数据集
+        return GeneralReturn.success(data);
     }
 
 }
