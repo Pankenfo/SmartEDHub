@@ -21,5 +21,11 @@ import java.util.Map;
 public interface QuestionMapper extends BaseMapper<Question> {
     //public List<Question> GetAllQuestionByClassId(int classId);
 
-    IPage<Question> GetAllQuestionByClassId(IPage<Question> page,int classId);
+    IPage<Question> GetAllQuestionByClassId(IPage<Question> page,int classId,String questionTitle);
+
+    List<Question> GetAllQuestionByClassIdNopage(Integer classId, String questionTitle);
+
+    void AddLike(int questionId);
+
+    void CancelLike(int questionId);
 }

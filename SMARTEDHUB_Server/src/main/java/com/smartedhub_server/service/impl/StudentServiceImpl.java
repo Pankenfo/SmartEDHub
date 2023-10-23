@@ -43,13 +43,13 @@ public class StudentServiceImpl extends ServiceImpl<StudentMapper, Student> impl
     @Autowired
     private ITeacherService teacherService;
     @Autowired
-    private IMyFavouriteService myFavouriteService;
-    @Autowired
     private PasswordEncoder passwordEncoder;
     @Autowired
     private UserDetailsService userDetailsService;
     @Autowired
     private JwtTokenUtil jwtTokenUtil;
+    @Autowired
+    private IMyFavouriteService iMyFavouriteService; //新用户注册自动创建收藏夹 kevin
     @Value("${jwt.tokenHead}")
     private String tokenHead;
 
@@ -96,7 +96,7 @@ public class StudentServiceImpl extends ServiceImpl<StudentMapper, Student> impl
 
             int result = studentMapper.insert(student);
             if (result == 1) {
-                myFavouriteService.CreateMyFavourite(student.getUsername());
+                iMyFavouriteService.CreateMyFavourite(student.getUsername());
                 return GeneralReturn.success("Register successfully");
             } else {
                 return GeneralReturn.error("Register failed");

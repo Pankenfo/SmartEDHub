@@ -38,7 +38,7 @@ public class ClassroomServiceImpl extends ServiceImpl<ClassroomMapper, Classroom
     /**
      * 10-22 jimmy 改了一创建班级的代码
      * @param newclassroom
-     * @param principal
+     * @param username
      * @return
      */
     @Override
@@ -59,16 +59,8 @@ public class ClassroomServiceImpl extends ServiceImpl<ClassroomMapper, Classroom
     }
 
     @Override
-    public GeneralReturn GetAllOrSpecificClassroom(int pageNo, int pageSize, String classname, String username) {
-        LambdaQueryWrapper<Classroom> wrapper = new LambdaQueryWrapper<>();
-        wrapper.like(StringUtils.hasLength(classname), Classroom::getClassname,classname); //条件查询
-        wrapper.like(StringUtils.hasLength(username), Classroom::getUsername,username); //条件查询
-        Page<Classroom> page = new Page<>(pageNo, pageSize);
-        classroomMapper.selectPage(page,wrapper);
-        Map<String, Object> data = new HashMap<>();
-        data.put("total", page.getTotal());//查询的总数
-        data.put("rows",page.getRecords());//查询到的数据集
-        return GeneralReturn.success(data);
+    public GeneralReturn StudentGetClassroom(String classname, Integer studentId) {
+        return GeneralReturn.success(classroomMapper.StudentGetClassroom(classname,studentId));
     }
 
     @Override
@@ -79,6 +71,7 @@ public class ClassroomServiceImpl extends ServiceImpl<ClassroomMapper, Classroom
         }
         return GeneralReturn.error("Delete failed, please try again");
     }
+
 
 //    @Override
 //    public GeneralReturn GetAllOrSpecificClassroom(int pageNo, int pageSize, String classname) {

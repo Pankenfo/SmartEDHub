@@ -1,7 +1,6 @@
 package com.smartedhub_server.service.impl;
 
 import com.baomidou.mybatisplus.core.conditions.query.LambdaQueryWrapper;
-import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
 import com.baomidou.mybatisplus.core.metadata.IPage;
 import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
@@ -34,6 +33,7 @@ public class QuestionServiceImpl extends ServiceImpl<QuestionMapper, Question> i
     @Override
     public GeneralReturn createQuestion(Question question) {
         question.setValidity(1);
+        question.setLikes(0);
         questionMapper.insert(question);
         return GeneralReturn.success("create a question successfully");
     }
@@ -45,10 +45,9 @@ public class QuestionServiceImpl extends ServiceImpl<QuestionMapper, Question> i
     }
 
     @Override
-    public GeneralReturn GetAllOrSpecificQuestion(int pageNo, int pageSize, String questionTitle, String questionDetail) {
+    public GeneralReturn GetAllOrSpecificQuestion(int pageNo, int pageSize, String questionTitle) {
         LambdaQueryWrapper<Question> wrapper = new LambdaQueryWrapper<>();
         wrapper.like(StringUtils.hasLength(questionTitle), Question::getQuestionTitle,questionTitle); //条件查询
-        wrapper.like(StringUtils.hasLength(questionDetail), Question::getQuestionDetail,questionDetail); //条件查询
         Page<Question> page = new Page<>(pageNo, pageSize);
         questionMapper.selectPage(page,wrapper);
         Map<String, Object> data = new HashMap<>();
@@ -58,26 +57,46 @@ public class QuestionServiceImpl extends ServiceImpl<QuestionMapper, Question> i
     }
 
     @Override
-    public GeneralReturn GetAllQuestionByClassId(int pageNo, int pageSize, int classId, String questionTitle, String questionDetail) {
+    public GeneralReturn GetAllQuestionByClassId(int pageNo, int pageSize, int classId, String questionTitle) {
         Page<Question> page = new Page<>(pageNo, pageSize);
-        IPage<Question> iPage = questionMapper.GetAllQuestionByClassId(page, classId);
+        IPage<Question> iPage = questionMapper.GetAllQuestionByClassId(page, classId,questionTitle);
         Map<String, Object> data = new HashMap<>();
         data.put("total", iPage.getTotal());
         data.put("data",iPage.getRecords());
         return GeneralReturn.success(data);
     }
 
-    /**
-     * 根据学生名字获取问题
-     * @param studentName
-     * @return
-     */
     @Override
-    public List<Question> getQuestionByStudentName(String studentName) {
-        List<Question> username = questionMapper.selectList(new QueryWrapper<Question>().eq("username", studentName));
-        if (username.size() > 0) {
-            return username;
-        }
-        return null;
+    public int LikeQuestion(Integer questionId) {
+        questionMapper.AddLike(questionId);
+        return (questionMapper.selectById(questionId).getLikes());
     }
+
+    @Override
+    public int CancelLikeQuestion(Integer questionId) {
+        if(questionMapper.selectById(questionId).getLikes() == 0){
+            return 0;
+        }
+        else {
+            questionMapper.CancelLike(questionId);
+            return (questionMapper.selectById(questionId).getLikes());
+        }
+    }
+
+    @Override
+    public GeneralReturn GetAllQuestionByClassIdNoPage(int classId, String questionTitle) {
+        questionMapper.GetAllQuestionByClassIdNopage(classId,questionTitle);
+        return GeneralReturn.success(questionMapper.GetAllQuestionByClassIdNopage(classId,questionTitle));
+    }
+
+    @Override
+    public GeneralReturn GetAllOrSpecificQuestionNoPage(String questionTitle) {
+        LambdaQueryWrapper<Question> wrapper = new LambdaQueryWrapper<>();
+        wrapper.like(StringUtils.hasLength(questionTitle), Question::getQuestionTitle,questionTitle); //条件查询
+        Map<String, Object> data = new HashMap<>();
+        data.put("total", questionMapper.selectCount(wrapper));//查询的总数
+        data.put("rows",questionMapper.selectList(wrapper));//查询到的数据集
+        return GeneralReturn.success(data);
+    }
+
 }

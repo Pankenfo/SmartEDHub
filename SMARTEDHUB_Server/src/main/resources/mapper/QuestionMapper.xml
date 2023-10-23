@@ -16,8 +16,43 @@
     </resultMap>
 
     <!-- 通用查询结果列 -->
-    <sql id="Base_Column_List">
-        question_id, question_detail, question_title, question_date, username, correct_answer, likes, question_type, validity
-    </sql>
+    <select id="GetAllQuestionByClassId" resultType="com.smartedhub_server.pojo.Question">\
+        <bind name="pattern" value="'%' + questionTitle + '%'" />
+        SELECT
+            *
+        FROM
+            smartedhub.t_question
+        WHERE
+                question_id IN (SELECT
+                                    question_id
+                                FROM
+                                    smartedhub.t_question_class
+                                WHERE
+                                    class_id = #{classId} and question_title like #{pattern})
+    </select>
+
+    <select id="GetAllQuestionByClassIdNopage" resultType="com.smartedhub_server.pojo.Question">
+        <bind name="pattern" value="'%' + questionTitle + '%'" />
+        SELECT
+        *
+        FROM
+        smartedhub.t_question
+        WHERE
+        question_id IN (SELECT
+        question_id
+        FROM
+        smartedhub.t_question_class
+        WHERE
+        class_id = #{classId} and question_title like #{pattern})
+    </select>
+
+    <update id="AddLike" >
+        update smartedhub.t_question set likes = likes + 1 where question_id = #{questionId}
+    </update>
+
+    <update id="CancelLike" >
+        update smartedhub.t_question set likes = likes - 1 where question_id = #{questionId}
+    </update>
+
 
 </mapper>

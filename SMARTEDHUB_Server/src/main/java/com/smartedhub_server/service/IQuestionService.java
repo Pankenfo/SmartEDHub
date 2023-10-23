@@ -4,8 +4,6 @@ import com.baomidou.mybatisplus.extension.service.IService;
 import com.smartedhub_server.pojo.GeneralReturn;
 import com.smartedhub_server.pojo.Question;
 
-import java.util.List;
-
 /**
  * <p>
  * Storage the details of each question 服务类
@@ -20,14 +18,16 @@ public interface IQuestionService extends IService<Question> {
 
     GeneralReturn GetQuestionById(Integer questionId);
 
-    GeneralReturn GetAllOrSpecificQuestion(int pageNo, int pageSize, String questionTitle, String questionDetail);
+    GeneralReturn GetAllOrSpecificQuestion(int pageNo, int pageSize, String questionTitle);
 
-    GeneralReturn GetAllQuestionByClassId(int pageNo, int pageSize, int classId, String questionTitle, String questionDetail);
+    GeneralReturn GetAllQuestionByClassId(int pageNo, int pageSize, int classId, String questionTitle);
 
-    /**
-     * 根据学生名字获取问题
-     * @param studentName
-     * @return
-     */
-    List<Question> getQuestionByStudentName(String studentName);
+
+    int LikeQuestion(Integer questionId);
+
+    int CancelLikeQuestion(Integer questionId);
+
+    GeneralReturn GetAllQuestionByClassIdNoPage(int classId, String questionTitle);
+
+    GeneralReturn GetAllOrSpecificQuestionNoPage(String questionTitle);
 }
