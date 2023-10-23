@@ -107,7 +107,7 @@ public class StudentServiceImpl extends ServiceImpl<StudentMapper, Student> impl
     }
 
     @Override
-    public GeneralReturn studentLogin(String username, String password, HttpServletRequest request) {
+    public GeneralReturn studentOrTeacherLogin(String username, String password, HttpServletRequest request) {
 
         UserDetails userDetails = userDetailsService.loadUserByUsername(username);
         if (userDetails == null || !passwordEncoder.matches(password, userDetails.getPassword())) {
