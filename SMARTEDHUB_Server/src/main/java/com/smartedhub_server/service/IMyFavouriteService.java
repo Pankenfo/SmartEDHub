@@ -3,6 +3,7 @@ package com.smartedhub_server.service;
 import com.baomidou.mybatisplus.extension.service.IService;
 import com.smartedhub_server.pojo.GeneralReturn;
 import com.smartedhub_server.pojo.MyFavourite;
+import io.swagger.models.auth.In;
 
 /**
  * <p>
@@ -24,4 +25,6 @@ public interface IMyFavouriteService extends IService<MyFavourite> {
     GeneralReturn AddToFvourite(int questionId, String username);
 
     GeneralReturn CancelFavourite(int questionId, String username);
+
+    GeneralReturn ListMyFavourite(String username);
 }

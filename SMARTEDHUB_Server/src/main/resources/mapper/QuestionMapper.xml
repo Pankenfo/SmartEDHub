@@ -16,7 +16,8 @@
     </resultMap>
 
     <!-- 通用查询结果列 -->
-    <select id="GetAllQuestionByClassId" resultType="com.smartedhub_server.pojo.Question">
+    <select id="GetAllQuestionByClassId" resultType="com.smartedhub_server.pojo.Question">\
+        <bind name="pattern" value="'%' + questionTitle + '%'" />
         SELECT
             *
         FROM
@@ -27,8 +28,24 @@
                                 FROM
                                     smartedhub.t_question_class
                                 WHERE
-                                    class_id = #{classId})
+                                    class_id = #{classId} and question_title like #{pattern})
     </select>
+
+    <select id="GetAllQuestionByClassIdNopage" resultType="com.smartedhub_server.pojo.Question">
+        <bind name="pattern" value="'%' + questionTitle + '%'" />
+        SELECT
+        *
+        FROM
+        smartedhub.t_question
+        WHERE
+        question_id IN (SELECT
+        question_id
+        FROM
+        smartedhub.t_question_class
+        WHERE
+        class_id = #{classId} and question_title like #{pattern})
+    </select>
+
     <update id="AddLike" >
         update smartedhub.t_question set likes = likes + 1 where question_id = #{questionId}
     </update>

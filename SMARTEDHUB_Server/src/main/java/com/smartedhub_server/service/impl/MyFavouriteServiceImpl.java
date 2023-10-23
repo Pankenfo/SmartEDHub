@@ -69,4 +69,13 @@ public class MyFavouriteServiceImpl extends ServiceImpl<MyFavouriteMapper, MyFav
         return GeneralReturn.success("Cancel successfully");
     }
 
+    @Override
+    public GeneralReturn ListMyFavourite(String username) {
+        LambdaQueryWrapper<MyFavourite> wrapper = new LambdaQueryWrapper<>();
+        wrapper.eq(MyFavourite::getUsername,username);
+        LambdaQueryWrapper<QuestionMyFavourite> wrapper2 = new LambdaQueryWrapper<>();
+        wrapper2.eq(QuestionMyFavourite::getMyfavouriteId,myFavouriteMapper.selectOne(wrapper).getMyfavouriteId());
+        return GeneralReturn.success(questionMyFavouriteMapper.selectList(wrapper2));
+    }
+
 }

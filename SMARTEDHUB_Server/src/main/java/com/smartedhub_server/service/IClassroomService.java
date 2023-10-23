@@ -20,5 +20,7 @@ public interface IClassroomService extends IService<Classroom> {
 
     GeneralReturn DeleteClassroom(Integer classroomId);
 
+
+
     //GeneralReturn GetAllOrSpecificClassroom(int pageNo, int pageSize, String classname);
 }

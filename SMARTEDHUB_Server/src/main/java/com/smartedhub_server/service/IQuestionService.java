@@ -18,12 +18,16 @@ public interface IQuestionService extends IService<Question> {
 
     GeneralReturn GetQuestionById(Integer questionId);
 
-    GeneralReturn GetAllOrSpecificQuestion(int pageNo, int pageSize, String questionTitle, String questionDetail);
+    GeneralReturn GetAllOrSpecificQuestion(int pageNo, int pageSize, String questionTitle);
 
-    GeneralReturn GetAllQuestionByClassId(int pageNo, int pageSize, int classId, String questionTitle, String questionDetail);
+    GeneralReturn GetAllQuestionByClassId(int pageNo, int pageSize, int classId, String questionTitle);
 
 
     int LikeQuestion(Integer questionId);
 
     int CancelLikeQuestion(Integer questionId);
+
+    GeneralReturn GetAllQuestionByClassIdNoPage(int classId, String questionTitle);
+
+    GeneralReturn GetAllOrSpecificQuestionNoPage(String questionTitle);
 }
