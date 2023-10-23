@@ -9,6 +9,7 @@ import com.smartedhub_server.pojo.GeneralReturn;
 import com.smartedhub_server.pojo.Student;
 import com.smartedhub_server.pojo.Teacher;
 import com.smartedhub_server.pojo.UserLoginInfo;
+import com.smartedhub_server.service.IMyFavouriteService;
 import com.smartedhub_server.service.IStudentService;
 import com.smartedhub_server.service.ITeacherService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -41,6 +42,8 @@ public class StudentServiceImpl extends ServiceImpl<StudentMapper, Student> impl
     private StudentMapper studentMapper;
     @Autowired
     private ITeacherService teacherService;
+    @Autowired
+    private IMyFavouriteService myFavouriteService;
     @Autowired
     private PasswordEncoder passwordEncoder;
     @Autowired
@@ -93,6 +96,7 @@ public class StudentServiceImpl extends ServiceImpl<StudentMapper, Student> impl
 
             int result = studentMapper.insert(student);
             if (result == 1) {
+                myFavouriteService.CreateMyFavourite(student.getUsername());
                 return GeneralReturn.success("Register successfully");
             } else {
                 return GeneralReturn.error("Register failed");

@@ -57,7 +57,12 @@ public class Teacher implements Serializable, UserDetails {
     private String email;
 
     @ApiModelProperty(hidden = true)
+    @TableField("location")
     private String location;
+
+    @ApiModelProperty(value = "avatar", hidden = true)
+    @TableField("avatar")
+    private String avatar;
 
     @ApiModelProperty(value = "is it valid or not", hidden = true)
     private boolean validity;
