@@ -38,7 +38,7 @@ public class ClassroomServiceImpl extends ServiceImpl<ClassroomMapper, Classroom
     /**
      * 10-22 jimmy 改了一创建班级的代码
      * @param newclassroom
-     * @param principal
+     * @param username
      * @return
      */
     @Override
