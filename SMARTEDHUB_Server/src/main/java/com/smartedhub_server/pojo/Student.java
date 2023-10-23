@@ -60,7 +60,12 @@ public class Student implements Serializable, UserDetails {
     private String email;
 
     @ApiModelProperty(value = "location", hidden = true)
+    @TableField("location")
     private String location;
+
+    @ApiModelProperty(value = "avatar", hidden = true)
+    @TableField("avatar")
+    private String avatar;
 
     @ApiModelProperty(value = "is it valid or not")
     private boolean validity;

@@ -16,6 +16,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.util.StringUtils;
 
+import java.security.Principal;
 import java.util.HashMap;
 import java.util.Map;
 
@@ -34,17 +35,24 @@ public class ClassroomServiceImpl extends ServiceImpl<ClassroomMapper, Classroom
     @Autowired
     private TeacherMapper teacherMapper;
 
+    /**
+     * 10-22 jimmy 改了一创建班级的代码
+     * @param newclassroom
+     * @param principal
+     * @return
+     */
     @Override
-    public GeneralReturn CreateClass(Classroom newclass) {
-        String classname = newclass.getClassname();
+    public GeneralReturn CreateClass(Classroom newclassroom, String username) {
+        String classname = newclassroom.getClassname();
         QueryWrapper query = new QueryWrapper<>();
         query.eq("classname",classname);
         if(classroomMapper.selectCount(query) > 0){
             return GeneralReturn.error("The classname has existed, please choose another one");
         }
         else {
-            newclass.setValidity(1);
-            classroomMapper.insert(newclass);
+            newclassroom.setUsername(username);
+            newclassroom.setValidity(1);
+            classroomMapper.insert(newclassroom);
             return GeneralReturn.success("successfully");
         }
 
@@ -65,8 +73,11 @@ public class ClassroomServiceImpl extends ServiceImpl<ClassroomMapper, Classroom
 
     @Override
     public GeneralReturn DeleteClassroom(Integer classroomId) {
-        classroomMapper.deleteById(classroomId);
-        return GeneralReturn.success("Delete successfully");
+        int result = classroomMapper.deleteById(classroomId);
+        if (result == 1) {
+            return GeneralReturn.success("Delete successfully");
+        }
+        return GeneralReturn.error("Delete failed, please try again");
     }
 
 //    @Override

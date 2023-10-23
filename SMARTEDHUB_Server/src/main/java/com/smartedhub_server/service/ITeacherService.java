@@ -5,6 +5,8 @@ import com.smartedhub_server.pojo.GeneralReturn;
 import com.smartedhub_server.pojo.Student;
 import com.smartedhub_server.pojo.Teacher;
 
+import javax.servlet.http.HttpServletRequest;
+
 /**
  * <p>
  *  服务类
@@ -23,4 +25,13 @@ public interface ITeacherService extends IService<Teacher> {
      * @return
      */
     GeneralReturn teacherRegister(Teacher teacher);
+
+    /**
+     * For teacher login - 废弃了，student和teacher通用一个接口
+     * @param username
+     * @param password
+     * @param request
+     * @return
+     */
+    GeneralReturn teacherLogin(String username, String password, HttpServletRequest request);
 }

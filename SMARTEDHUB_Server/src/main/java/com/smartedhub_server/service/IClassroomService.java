@@ -14,7 +14,7 @@ import com.smartedhub_server.pojo.GeneralReturn;
  */
 public interface IClassroomService extends IService<Classroom> {
 
-    GeneralReturn CreateClass(Classroom newclass);
+    GeneralReturn CreateClass(Classroom newclassroom, String username);
 
     GeneralReturn GetAllOrSpecificClassroom(int pageNo, int pageSize, String classname, String username);
 

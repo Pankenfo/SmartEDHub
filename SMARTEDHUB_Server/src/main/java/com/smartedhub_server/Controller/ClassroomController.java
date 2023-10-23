@@ -8,6 +8,8 @@ import io.swagger.annotations.ApiOperation;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
+import java.security.Principal;
+
 /**
  * <p>
  *  前端控制器
@@ -23,10 +25,20 @@ public class ClassroomController {
     @Autowired
     private IClassroomService iClassroomService;
 
+    /**
+     * Create a new classroom - 10-22 jimmy改了username的加入添加方法
+     * @param newClassroom
+     * @param principal
+     * @return
+     */
     @PostMapping("/createClassroom")
     @ApiOperation("Create a new classroom")
-    public GeneralReturn CreateClass(@RequestBody Classroom newClassroom){
-        return iClassroomService.CreateClass(newClassroom);
+    public GeneralReturn CreateClass(@RequestBody Classroom newClassroom, Principal principal){
+        if (principal == null) {
+            return GeneralReturn.error("Please login first");
+        }
+        String username = principal.getName();
+        return iClassroomService.CreateClass(newClassroom, username);
     }
 
 //    @GetMapping("/getAllOrSpecificClassroom")

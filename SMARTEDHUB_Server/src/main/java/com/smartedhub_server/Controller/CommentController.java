@@ -33,7 +33,6 @@ public class CommentController {
      * @return
      * @throws ParamsException
      */
-    //TODO:接口文档要传的参数不对,看看是什么原因
     @PostMapping("/leaveComment")
     @ApiOperation(value = "Create a comment")
     public GeneralReturn createComment(@RequestBody Comment comment, @RequestParam Integer questionId, Principal principal) {
