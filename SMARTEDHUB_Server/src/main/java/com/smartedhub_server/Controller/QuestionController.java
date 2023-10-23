@@ -71,4 +71,17 @@ public class QuestionController {
     public GeneralReturn GetQuestionById(@RequestParam Integer questionId){
         return iQuestionService.GetQuestionById(questionId);
     }
+
+    @PutMapping("/like")
+    @ApiOperation("Like the question")
+    public int LikeQuestion(@RequestParam Integer questionId){
+        return iQuestionService.LikeQuestion(questionId);
+    }
+
+    @PutMapping("/cacelLike")
+    @ApiOperation("Cancel like the question")
+    public int CancelLikeQuestion(@RequestParam Integer questionId){
+        return iQuestionService.CancelLikeQuestion(questionId);
+    }
+
 }

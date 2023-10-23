@@ -22,4 +22,8 @@ public interface QuestionMapper extends BaseMapper<Question> {
     //public List<Question> GetAllQuestionByClassId(int classId);
 
     IPage<Question> GetAllQuestionByClassId(IPage<Question> page,int classId);
+
+    void AddLike(int questionId);
+
+    void CancelLike(int questionId);
 }

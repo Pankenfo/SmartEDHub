@@ -33,6 +33,7 @@ public class QuestionServiceImpl extends ServiceImpl<QuestionMapper, Question> i
     @Override
     public GeneralReturn createQuestion(Question question) {
         question.setValidity(1);
+        question.setLikes(0);
         questionMapper.insert(question);
         return GeneralReturn.success("create a question successfully");
     }
@@ -65,4 +66,22 @@ public class QuestionServiceImpl extends ServiceImpl<QuestionMapper, Question> i
         data.put("data",iPage.getRecords());
         return GeneralReturn.success(data);
     }
+
+    @Override
+    public int LikeQuestion(Integer questionId) {
+        questionMapper.AddLike(questionId);
+        return (questionMapper.selectById(questionId).getLikes());
+    }
+
+    @Override
+    public int CancelLikeQuestion(Integer questionId) {
+        if(questionMapper.selectById(questionId).getLikes() == 0){
+            return 0;
+        }
+        else {
+            questionMapper.CancelLike(questionId);
+            return (questionMapper.selectById(questionId).getLikes());
+        }
+    }
+
 }

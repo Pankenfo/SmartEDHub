@@ -21,4 +21,9 @@ public interface IQuestionService extends IService<Question> {
     GeneralReturn GetAllOrSpecificQuestion(int pageNo, int pageSize, String questionTitle, String questionDetail);
 
     GeneralReturn GetAllQuestionByClassId(int pageNo, int pageSize, int classId, String questionTitle, String questionDetail);
+
+
+    int LikeQuestion(Integer questionId);
+
+    int CancelLikeQuestion(Integer questionId);
 }
