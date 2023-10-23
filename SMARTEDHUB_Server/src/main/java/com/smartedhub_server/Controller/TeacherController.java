@@ -20,4 +20,6 @@ import org.springframework.web.bind.annotation.*;
 @RequestMapping("/teacher")
 public class TeacherController {
 
+    //TODO:头像
+
 }
