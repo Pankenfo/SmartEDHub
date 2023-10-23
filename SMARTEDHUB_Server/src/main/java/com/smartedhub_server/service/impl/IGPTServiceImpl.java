@@ -64,7 +64,7 @@ public class IGPTServiceImpl implements IGPTService {
         JSONObject bodyJson = new JSONObject();
         Message message = new Message();
 //        String questionByUser = "按照题目写一行，四个选项分别一行和正确答案一行的形式，生成一道" + prompt + "选择题";
-        String questionByUser = "In the form of writing one line for the question, one line for each of the four options and one line for the correct answer, generate an " + prompt + " multiple-choice question in english";
+        String questionByUser = "In the form of writing one line for the question, one line for each of the four options start with A./B./C./D. and one line for the correct answer, generate an " + prompt + " multiple-choice question in english";
         message.setContent(questionByUser);
         message.setRole("system");
         ArrayList<Message> messages = new ArrayList<>();

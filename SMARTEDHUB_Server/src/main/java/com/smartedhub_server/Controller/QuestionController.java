@@ -4,9 +4,13 @@ package com.smartedhub_server.Controller;
 import com.smartedhub_server.pojo.GeneralReturn;
 import com.smartedhub_server.pojo.Question;
 import com.smartedhub_server.service.IQuestionService;
+import com.sun.org.apache.bcel.internal.generic.LSTORE;
 import io.swagger.annotations.ApiOperation;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
+
+import java.security.Principal;
+import java.util.List;
 
 /**
  * <p>
@@ -58,6 +62,16 @@ public class QuestionController {
                                                   @RequestParam(value = "questionTitle", required = false) String questionTitle,
                                                   @RequestParam(value = "questionDetail", required = false) String questionDetail) {
         return iQuestionService.GetAllQuestionByClassId(pageNo,pageSize,classId,questionTitle,questionDetail);
+    }
+
+    @GetMapping("/getQuestionByStudentUsername")
+    @ApiOperation("Get all questions by student username")
+    public List<Question> getQuestionByStudentUsername(Principal principal) {
+        if (principal == null) {
+            return null;
+        }
+        String studentName = principal.getName();
+        return iQuestionService.getQuestionByStudentName(studentName);
     }
 
     @PostMapping("/createQuestion")

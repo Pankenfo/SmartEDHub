@@ -8,6 +8,8 @@ import io.swagger.annotations.ApiOperation;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
+import java.security.Principal;
+
 /**
  * <p>
  * For storage the announcement  前端控制器
@@ -24,8 +26,13 @@ public class AnnouncementController {
 
     @PostMapping("/createAnnouncement")
     @ApiOperation("Create a new announcement")
-    public GeneralReturn CreateAnnouncement(@RequestBody Announcement announcement){
-        return iAnnouncementService.CreateAnnouncement(announcement);
+    public GeneralReturn CreateAnnouncement(@RequestBody Announcement announcement, @RequestParam Integer classId, Principal principal){
+
+        if (principal == null) {
+            return null;
+        }
+        String username = principal.getName();
+        return iAnnouncementService.CreateAnnouncement(announcement, classId, username);
     }
 
     @GetMapping("/showAllOrSpecificAnnouncement")

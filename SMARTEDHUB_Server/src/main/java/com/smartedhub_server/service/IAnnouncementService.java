@@ -14,7 +14,9 @@ import com.smartedhub_server.pojo.GeneralReturn;
  */
 public interface IAnnouncementService extends IService<Announcement> {
 
-    GeneralReturn CreateAnnouncement(Announcement newAnnouncement);
+    GeneralReturn CreateAnnouncement(Announcement newAnnouncement, Integer classId, String username);
 
     GeneralReturn ShowAllOrSpecificAnnouncement(int pageNo, int pageSize, String announcementTitle, String announcementDetail);
 }
+
+

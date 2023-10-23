@@ -12,6 +12,7 @@ import lombok.experimental.Accessors;
 
 import java.io.Serializable;
 import java.time.LocalDate;
+import java.util.Date;
 
 /**
  * <p>
@@ -30,7 +31,7 @@ public class Announcement implements Serializable {
 
     private static final long serialVersionUID = 1L;
 
-    @ApiModelProperty(value = "id of announcement")
+    @ApiModelProperty(value = "id of announcement", hidden = true)
     @TableId(value = "announcement_id", type = IdType.AUTO)
     private Integer announcementId;
 
@@ -42,19 +43,19 @@ public class Announcement implements Serializable {
     @TableField("announcement_detail")
     private String announcementDetail;
 
-    @ApiModelProperty(value = "announcement date")
+    @ApiModelProperty(value = "announcement date", hidden = true)
     @TableField("announcement_date")
-    private LocalDate announcementDate;
+    private Date announcementDate;
 
-    @ApiModelProperty(value = "the teacher’s id")
+    @ApiModelProperty(value = "the teacher’s id", hidden = true)
     @TableField("teacher_id")
     private Integer teacherId;
 
-    @ApiModelProperty(value = "the class’s id")
+    @ApiModelProperty(value = "the class’s id", hidden = true)
     @TableField("class_id")
     private Integer classId;
 
-    @ApiModelProperty(value = "is it valid or not")
+    @ApiModelProperty(value = "is it valid or not", hidden = true)
     private Integer validity;
 
 

@@ -10,6 +10,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
 import java.security.Principal;
+import java.util.List;
 
 /**
  * <p>
@@ -48,6 +49,12 @@ public class CommentController {
     @GetMapping("/getCommentByQuestionId")
     public GeneralReturn getCommentByQuestionId(@RequestParam Integer questionId) {
         return commentService.getCommentByQuestionId(questionId);
+    }
+
+    @ApiOperation(value = "get all comment")
+    @GetMapping("/getAllComment")
+    public List<Comment> getAllComment() {
+        return commentService.list();
     }
 
     /**

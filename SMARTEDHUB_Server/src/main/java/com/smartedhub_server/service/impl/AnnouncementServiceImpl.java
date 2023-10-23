@@ -6,11 +6,14 @@ import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
 import com.smartedhub_server.mapper.AnnouncementMapper;
 import com.smartedhub_server.pojo.Announcement;
 import com.smartedhub_server.pojo.GeneralReturn;
+import com.smartedhub_server.pojo.Teacher;
 import com.smartedhub_server.service.IAnnouncementService;
+import com.smartedhub_server.service.ITeacherService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.util.StringUtils;
 
+import java.util.Date;
 import java.util.HashMap;
 import java.util.Map;
 
@@ -26,13 +29,24 @@ import java.util.Map;
 public class AnnouncementServiceImpl extends ServiceImpl<AnnouncementMapper, Announcement> implements IAnnouncementService {
     @Autowired
     private AnnouncementMapper announcementMapper;
+    @Autowired
+    private ITeacherService teacherService;
 
     @Override
-    public GeneralReturn CreateAnnouncement(Announcement announcement) {
+    public GeneralReturn CreateAnnouncement(Announcement announcement, Integer classId, String username) {
         //TODO:改一下，将时间，aid，tid都由后端来设置好，只需要写title和detail和classId
+
+        Teacher teacherByUserName = teacherService.getTeacherByUserName(username);
+        Integer teacherId = teacherByUserName.getTeacherId();
+        announcement.setTeacherId(teacherId);
+        announcement.setAnnouncementDate(new Date());
+        announcement.setClassId(classId);
         announcement.setValidity(1);
-        announcementMapper.insert(announcement);
-        return GeneralReturn.success("Create new announcement successfully");
+        int result = announcementMapper.insert(announcement);
+        if (result == 1) {
+            return GeneralReturn.success("Create new announcement successfully.");
+        }
+        return GeneralReturn.error("Create new announcement failed, please try again.");
     }
 
     @Override

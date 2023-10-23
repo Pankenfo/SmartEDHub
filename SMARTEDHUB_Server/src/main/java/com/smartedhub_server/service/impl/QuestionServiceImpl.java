@@ -1,6 +1,7 @@
 package com.smartedhub_server.service.impl;
 
 import com.baomidou.mybatisplus.core.conditions.query.LambdaQueryWrapper;
+import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
 import com.baomidou.mybatisplus.core.metadata.IPage;
 import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
@@ -64,5 +65,19 @@ public class QuestionServiceImpl extends ServiceImpl<QuestionMapper, Question> i
         data.put("total", iPage.getTotal());
         data.put("data",iPage.getRecords());
         return GeneralReturn.success(data);
+    }
+
+    /**
+     * 根据学生名字获取问题
+     * @param studentName
+     * @return
+     */
+    @Override
+    public List<Question> getQuestionByStudentName(String studentName) {
+        List<Question> username = questionMapper.selectList(new QueryWrapper<Question>().eq("username", studentName));
+        if (username.size() > 0) {
+            return username;
+        }
+        return null;
     }
 }
