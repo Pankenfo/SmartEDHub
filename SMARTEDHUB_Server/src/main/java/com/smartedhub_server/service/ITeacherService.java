@@ -4,6 +4,7 @@ import com.baomidou.mybatisplus.extension.service.IService;
 import com.smartedhub_server.pojo.GeneralReturn;
 import com.smartedhub_server.pojo.Student;
 import com.smartedhub_server.pojo.Teacher;
+import org.springframework.security.core.Authentication;
 
 import javax.servlet.http.HttpServletRequest;
 
@@ -34,4 +35,13 @@ public interface ITeacherService extends IService<Teacher> {
      * @return
      */
     GeneralReturn teacherLogin(String username, String password, HttpServletRequest request);
+
+    /**
+     * For teacher update teacher avatar
+     * @param userId
+     * @param url
+     * @param authentication
+     * @return
+     */
+    GeneralReturn updateTeacherAvatar(Integer userId, String url, Authentication authentication);
 }

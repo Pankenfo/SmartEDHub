@@ -1,8 +1,10 @@
 package com.smartedhub_server.Controller;
 
 
+import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
 import com.smartedhub_server.pojo.GeneralReturn;
 import com.smartedhub_server.pojo.Question;
+import com.smartedhub_server.pojo.Student;
 import com.smartedhub_server.service.IQuestionClassService;
 import com.smartedhub_server.service.IQuestionService;
 import com.sun.org.apache.bcel.internal.generic.LSTORE;
@@ -35,7 +37,6 @@ public class QuestionController {
      * @param pageNo 第几页 必须输入
      * @param pageSize 一页显示几个 必须输入
      * @param questionTitle 问题的标题
-     * @param questionDetail 问题的详细内容
      * @return
      */
     @GetMapping("/getAllQuestionPage")
@@ -84,7 +85,7 @@ public class QuestionController {
             return null;
         }
         String studentName = principal.getName();
-        return iQuestionService.getQuestionByStudentName(studentName);
+        return iQuestionService.list(new QueryWrapper<Question>().eq("username", studentName));
     }
 
     @PostMapping("/createQuestion")
@@ -112,7 +113,7 @@ public class QuestionController {
         return iQuestionService.LikeQuestion(questionId);
     }
 
-    @PutMapping("/cacelLike")
+    @PutMapping("/cancelLike")
     @ApiOperation("Cancel like the question")
     public int CancelLikeQuestion(@RequestParam Integer questionId){
         return iQuestionService.CancelLikeQuestion(questionId);

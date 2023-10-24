@@ -6,6 +6,7 @@ import com.smartedhub_server.pojo.Comment;
 import com.smartedhub_server.pojo.GeneralReturn;
 import com.smartedhub_server.pojo.Student;
 import com.smartedhub_server.pojo.UserLoginInfo;
+import org.springframework.security.core.Authentication;
 
 import javax.servlet.http.HttpServletRequest;
 
@@ -42,4 +43,13 @@ public interface IStudentService extends IService<Student> {
      * @return
      */
     GeneralReturn studentOrTeacherLogin(String username, String password, HttpServletRequest request);
+
+    /**
+     * For student update student avatar
+     * @param url
+     * @param userId
+     * @param authentication
+     * @return
+     */
+    GeneralReturn updateStudentAvatar(String url, Integer userId, Authentication authentication);
 }

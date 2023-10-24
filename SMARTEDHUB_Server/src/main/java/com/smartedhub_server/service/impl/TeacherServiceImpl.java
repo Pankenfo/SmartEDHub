@@ -12,6 +12,7 @@ import com.smartedhub_server.service.ITeacherService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
+import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UserDetailsService;
@@ -114,5 +115,27 @@ public class TeacherServiceImpl extends ServiceImpl<TeacherMapper, Teacher> impl
         tokenMap.put("tokenHead", tokenHead);
 
         return GeneralReturn.success("Login successfully", tokenMap);
+    }
+
+    /**
+     * For teacher update teacher avatar
+     * @param userId
+     * @param url
+     * @param authentication
+     * @return
+     */
+    @Override
+    public GeneralReturn updateTeacherAvatar(Integer userId, String url, Authentication authentication) {
+
+        Teacher teacher = teacherMapper.selectById(userId);
+        teacher.setAvatar(url);
+        int result = teacherMapper.updateById(teacher);
+        if (result == 1) {
+            Teacher principal = (Teacher) authentication.getPrincipal();
+            principal.setAvatar(url);
+            SecurityContextHolder.getContext().setAuthentication(new UsernamePasswordAuthenticationToken(teacher, null, authentication.getAuthorities()));
+            return GeneralReturn.success("Update avatar successfully", url);
+        }
+        return GeneralReturn.error("Update avatar failed");
     }
 }

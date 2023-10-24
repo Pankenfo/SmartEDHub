@@ -129,4 +129,26 @@ public class StudentServiceImpl extends ServiceImpl<StudentMapper, Student> impl
         return GeneralReturn.success("Login successfully", tokenMap);
     }
 
+    /**
+     * Update student avatar
+     * @param url
+     * @param userId
+     * @param authentication
+     * @return
+     */
+    @Override
+    public GeneralReturn updateStudentAvatar(String url, Integer userId, Authentication authentication) {
+
+        Student student = studentMapper.selectById(userId);
+        student.setAvatar(url);
+        int result = studentMapper.updateById(student);
+        if (result == 1) {
+            Student principal = (Student) authentication.getPrincipal();
+            principal.setAvatar(url);
+            SecurityContextHolder.getContext().setAuthentication(new UsernamePasswordAuthenticationToken(student, null, authentication.getAuthorities()));
+            return GeneralReturn.success("Update avatar successfully", url);
+        }
+        return GeneralReturn.error("Update avatar failed");
+    }
+
 }
