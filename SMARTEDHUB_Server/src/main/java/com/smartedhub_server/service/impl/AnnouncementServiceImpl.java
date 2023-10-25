@@ -6,6 +6,7 @@ import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
 import com.smartedhub_server.mapper.AnnouncementMapper;
 import com.smartedhub_server.pojo.Announcement;
 import com.smartedhub_server.pojo.GeneralReturn;
+import com.smartedhub_server.pojo.StudentClass;
 import com.smartedhub_server.pojo.Teacher;
 import com.smartedhub_server.service.IAnnouncementService;
 import com.smartedhub_server.service.ITeacherService;
@@ -61,5 +62,20 @@ public class AnnouncementServiceImpl extends ServiceImpl<AnnouncementMapper, Ann
         data.put("total", page.getTotal());//查询的总数
         data.put("rows",page.getRecords());//查询的数据
         return GeneralReturn.success(data);
+    }
+
+    @Override
+    public GeneralReturn ShowAllOrSpecificAnnouncementNoPage(String announcementTitle, String announcementDetail) {
+        LambdaQueryWrapper<Announcement> wrapper = new LambdaQueryWrapper<>();
+        wrapper.like(StringUtils.hasLength(announcementTitle), Announcement::getAnnouncementTitle,announcementTitle)
+                .or()
+                .like(StringUtils.hasLength(announcementDetail), Announcement::getAnnouncementDetail,announcementDetail);
+        return GeneralReturn.success(announcementMapper.selectList(wrapper));
+
+    }
+
+    @Override
+    public GeneralReturn ShowAnnouncementByStudentId(Integer studentId, String announcementTitle) {
+        return GeneralReturn.success(announcementMapper.ShowAnnouncementByStudentId(studentId,announcementTitle));
     }
 }
