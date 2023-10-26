@@ -79,6 +79,41 @@ public class IGPTServiceImpl implements IGPTService {
         }
     }
 
+    /**
+     * For user translation
+     * @param text
+     * @param targetLanguage
+     * @return
+     */
+    @Override
+    public String translation(String text, String targetLanguage) {
+
+        String prompt = "Please translate this sentence into " + targetLanguage + ": " + text;
+        String GPTReturn = connectToGPT(prompt);
+
+        GPTResponse gptResponse = JSONUtil.toBean(GPTReturn, GPTResponse.class);
+
+        String messageByGPT = gptResponse.getChoices().get(0).getMessage().getContent();
+        return messageByGPT;
+    }
+
+    /**
+     * For user revise an essay
+     * @param text
+     * @return
+     */
+    @Override
+    public String reviseAnEssay(String text) {
+        String prompt = "Please revise this essay: " + text;
+        String GPTReturn = connectToGPT(prompt);
+
+        GPTResponse gptResponse = JSONUtil.toBean(GPTReturn, GPTResponse.class);
+
+        String messageByGPT = gptResponse.getChoices().get(0).getMessage().getContent();
+
+        return messageByGPT;
+    }
+
     public GeneralReturn teacherGetQuestion(QuestionInfo questionInfo, String username) {
 
         String prompt = "";

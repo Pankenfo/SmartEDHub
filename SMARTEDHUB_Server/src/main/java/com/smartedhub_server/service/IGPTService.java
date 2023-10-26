@@ -21,4 +21,19 @@ public interface IGPTService {
      * @return
      */
     GeneralReturn teacherGenerateQuestionByGPT(QuestionInfo questionInfo, Principal principal);
+
+    /**
+     * For user translation
+     * @param text
+     * @param targetLanguage
+     * @return
+     */
+    String translation(String text, String targetLanguage);
+
+    /**
+     * For user revise an essay
+     * @param text
+     * @return
+     */
+    String reviseAnEssay(String text);
 }

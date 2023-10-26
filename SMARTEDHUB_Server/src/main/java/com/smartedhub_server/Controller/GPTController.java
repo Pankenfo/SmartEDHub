@@ -85,10 +85,18 @@ public class GPTController {
      * @param text
      * @return
      */
-    //TODO: 做一个智能翻译功能
-//    @ApiOperation(value = "translation")
-//    @PostMapping("/translation")
-//
+    @ApiOperation(value = "translation")
+    @PostMapping("/translation")
+    public String translation(@RequestParam String text, @RequestParam String targetLanguage) {
+        return gptService.translation(text, targetLanguage);
+    }
+
+    @ApiOperation(value = "Revise an essay")
+    @PostMapping("/reviseAnEssay")
+    public String reviseAnEssay(@RequestParam String text) {
+        return gptService.reviseAnEssay(text);
+    }
+
 
 
 
