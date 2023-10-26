@@ -12,10 +12,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.util.StringUtils;
 
-import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
+import java.util.*;
 
 /**
  * <p>
@@ -34,6 +31,7 @@ public class QuestionServiceImpl extends ServiceImpl<QuestionMapper, Question> i
     public GeneralReturn createQuestion(Question question) {
         question.setValidity(1);
         question.setLikes(0);
+        question.setQuestionDate(new Date());
         questionMapper.insert(question);
         return GeneralReturn.success("create a question successfully");
     }
@@ -97,6 +95,11 @@ public class QuestionServiceImpl extends ServiceImpl<QuestionMapper, Question> i
         data.put("total", questionMapper.selectCount(wrapper));//查询的总数
         data.put("rows",questionMapper.selectList(wrapper));//查询到的数据集
         return GeneralReturn.success(data);
+    }
+
+    @Override
+    public GeneralReturn StudentGetAllQuestion(Integer studentId) {
+        return GeneralReturn.success(questionMapper.StudentGetAllQuestion(studentId));
     }
 
 }

@@ -72,8 +72,8 @@ public class ClassroomController {
         return iStudentClassService.AddToClassroom(studentId, classId);
     }
 
-    @GetMapping("/showClassDetail")
-    @ApiOperation("Shwo the detail of the classroon")
+    @GetMapping("/showClassStudent")
+    @ApiOperation("Show student in this classroon")
     public GeneralReturn ShowClassDetail(@RequestParam(value = "classId") Integer classId){
         return iStudentClassService.ShowClassDetail(classId);
     }
@@ -89,5 +89,12 @@ public class ClassroomController {
     @ApiOperation("Count the number of students")
     public Long CountStudent(@RequestParam(value = "classId") Integer classId){
         return iStudentClassService.CountStudent(classId);
+    }
+
+    @DeleteMapping("/deleteStudent")
+    @ApiOperation("Delete students from classroom")
+    public GeneralReturn DeleteStudent(@RequestParam(value = "studentId") Integer studentId,
+                                       @RequestParam(value = "classId") Integer classId){
+        return iStudentClassService.DeleteStudent(studentId,classId);
     }
 }

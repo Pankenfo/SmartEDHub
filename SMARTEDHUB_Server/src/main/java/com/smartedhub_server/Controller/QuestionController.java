@@ -119,4 +119,10 @@ public class QuestionController {
         return iQuestionService.CancelLikeQuestion(questionId);
     }
 
+    @GetMapping("/studentGetQuestion")
+    @ApiOperation("Student get their question allocated by teachers")
+    public GeneralReturn StudentGetAllQuestion(@RequestParam(value = "studentId") Integer studentId){
+        return iQuestionService.StudentGetAllQuestion(studentId);
+    }
+
 }

@@ -54,5 +54,24 @@
         update smartedhub.t_question set likes = likes - 1 where question_id = #{questionId}
     </update>
 
+    <select id="StudentGetAllQuestion" resultType="com.smartedhub_server.pojo.Question">
+        SELECT
+            *
+        FROM
+            t_question
+        WHERE
+                question_id IN (SELECT
+                                    question_id
+                                FROM
+                                    t_question_class
+                                WHERE
+                                        class_id IN (SELECT
+                                                         class_id
+                                                     FROM
+                                                         t_student_class
+                                                     WHERE
+                                                         student_id = #{studentId}))
+    </select>
+
 
 </mapper>

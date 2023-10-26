@@ -28,4 +28,6 @@ public interface QuestionMapper extends BaseMapper<Question> {
     void AddLike(int questionId);
 
     void CancelLike(int questionId);
+
+    List<Question> StudentGetAllQuestion(Integer studentId);
 }

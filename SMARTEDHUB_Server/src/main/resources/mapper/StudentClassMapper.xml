@@ -14,6 +14,9 @@
     <sql id="Base_Column_List">
         student_class_id, class_id, student_id, validity
     </sql>
+    <select id="ShowClassStudent" resultType="com.smartedhub_server.pojo.Student">
+        select * from t_student where student_id in (select student_id from t_student_class where class_id = #{classId})
+    </select>
 
 
 

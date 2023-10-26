@@ -44,9 +44,7 @@ public class StudentClassServiceImpl extends ServiceImpl<StudentClassMapper, Stu
 
     @Override
     public GeneralReturn ShowClassDetail(Integer classId) {
-        LambdaQueryWrapper<StudentClass> wrapper = new LambdaQueryWrapper<>();
-        wrapper.eq(StudentClass::getClassId, classId);
-        return GeneralReturn.success(studentClassMapper.selectList(wrapper));
+        return GeneralReturn.success(studentClassMapper.ShowClassStudent(classId));
     }
 
     
@@ -60,5 +58,13 @@ public class StudentClassServiceImpl extends ServiceImpl<StudentClassMapper, Stu
         LambdaQueryWrapper<StudentClass> wrapper = new LambdaQueryWrapper<>();
         wrapper.eq(StudentClass::getClassId,classId);
         return studentClassMapper.selectCount(wrapper);
+    }
+
+    @Override
+    public GeneralReturn DeleteStudent(Integer studentId,Integer classId) {
+        LambdaQueryWrapper<StudentClass> wrapper = new LambdaQueryWrapper<>();
+        wrapper.eq(StudentClass::getClassId,classId).and(i->i.eq(StudentClass::getStudentId,studentId));
+        studentClassMapper.delete(wrapper);
+        return GeneralReturn.success("Delete successfully");
     }
 }

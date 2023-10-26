@@ -22,4 +22,6 @@ public interface IStudentClassService extends IService<StudentClass> {
     GeneralReturn ShowTeacherClassList(String teaUsername,String classname);
 
     Long CountStudent(Integer classId);
+
+    GeneralReturn DeleteStudent(Integer studentId,Integer classId);
 }
