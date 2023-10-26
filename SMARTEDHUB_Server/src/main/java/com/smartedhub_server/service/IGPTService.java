@@ -4,6 +4,8 @@ package com.smartedhub_server.service;
 import com.smartedhub_server.pojo.GeneralReturn;
 import com.smartedhub_server.pojo.QuestionInfo;
 
+import java.security.Principal;
+
 public interface IGPTService {
 
     /**
@@ -18,5 +20,5 @@ public interface IGPTService {
      * @param questionInfo
      * @return
      */
-    GeneralReturn teacherGenerateQuestionByGPT(QuestionInfo questionInfo);
+    GeneralReturn teacherGenerateQuestionByGPT(QuestionInfo questionInfo, Principal principal);
 }

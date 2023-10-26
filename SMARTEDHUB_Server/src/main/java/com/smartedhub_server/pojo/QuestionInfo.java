@@ -13,9 +13,18 @@ import lombok.Data;
 @ApiModel(value="QuestionInfo", description="Storage the details of each question")
 public class QuestionInfo {
 
-    private String difficulty;
+    private String level;
 
-    private String description;
+    private String requirements;
 
-    private String discipline;
+    private String subject;
+
+    /**
+     * 1: GPT生成的MCQ
+     * 2: 老师用GPT的MCQ
+     * 3: 老师用GPT生成的填空题
+     * 4: 老师用GPT生成的简答题
+     * 5: 老师用GPT生成的开放题
+     */
+    private Integer questionType;
 }

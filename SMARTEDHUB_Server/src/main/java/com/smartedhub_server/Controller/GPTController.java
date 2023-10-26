@@ -76,8 +76,8 @@ public class GPTController {
 
     @ApiOperation(value = "Teacher Generate Questions By AI")
     @PostMapping("/teacherGenerateQuestionsByGPT")
-    public GeneralReturn teacherGenerateQuestionByGPT(@RequestBody QuestionInfo questionInfo) {
-        return gptService.teacherGenerateQuestionByGPT(questionInfo);
+    public GeneralReturn teacherGenerateQuestionByGPT(@RequestBody QuestionInfo questionInfo, Principal principal) {
+        return gptService.teacherGenerateQuestionByGPT(questionInfo, principal);
     }
 
     /**
