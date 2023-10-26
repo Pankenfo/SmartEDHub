@@ -10,6 +10,7 @@ import com.smartedhub_server.pojo.GeneralReturn;
 import com.smartedhub_server.pojo.OpenAI.Message;
 import com.smartedhub_server.pojo.OpenAI.GPTResponse;
 import com.smartedhub_server.pojo.Question;
+import com.smartedhub_server.pojo.QuestionInfo;
 import com.smartedhub_server.service.IGPTService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
@@ -56,6 +57,24 @@ public class IGPTServiceImpl implements IGPTService {
     }
 
     /**
+     * 老师根据题目信息生成题目
+     * @param questionInfo
+     * @return
+     */
+    @Override
+    public GeneralReturn teacherGenerateQuestionByGPT(QuestionInfo questionInfo) {
+        return null;
+    }
+
+    //TODO: 用于老师用GPT生成题目 - 还没做
+    public GeneralReturn teacherGetQuestion(QuestionInfo questionInfo) {
+
+
+
+        return GeneralReturn.success("yyy");
+    }
+
+    /**
      * 获得并处理GPT返回的数据
      * @param prompt
      * @return
@@ -90,9 +109,9 @@ public class IGPTServiceImpl implements IGPTService {
 
         //提取GPT生成的选择题
         String messageByGPT = gptResponse.getChoices().get(0).getMessage().getContent();
-        System.out.println("=========================");
-        System.out.println("messageByGPT: \n" + messageByGPT);
-        System.out.println("=========================");
+//        System.out.println("=========================");
+//        System.out.println("messageByGPT: \n" + messageByGPT);
+//        System.out.println("=========================");
 
         //处理GPT返回的题目内容
         String[] lines = messageByGPT.split("\n");
