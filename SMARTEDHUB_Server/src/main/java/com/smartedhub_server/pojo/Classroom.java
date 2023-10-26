@@ -38,7 +38,7 @@ public class Classroom implements Serializable {
     @ApiModelProperty(value = "teacher_username", hidden = true)
     private String username;
 
-    @TableLogic(value="1",delval="0")
+
     @ApiModelProperty(value = "validity", hidden = true)
     //value为正常数据的值，delval为删除数据的值
     private Integer validity;
