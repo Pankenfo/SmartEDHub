@@ -17,5 +17,20 @@
     <sql id="Base_Column_List">
         announcement_id, announcement_title, announcement_detail, announcement_date, teacher_id, class_id, validity
     </sql>
+    <select id="ShowAnnouncementByStudentId" resultType="com.smartedhub_server.pojo.Announcement">
+        <bind name="pattern" value="'%' + announcementTitle + '%'" />
+        SELECT
+        *
+        FROM
+        smartedhub.t_announcement
+        WHERE
+        class_id IN (SELECT
+        class_id
+        FROM
+        smartedhub.t_student_class
+        WHERE
+        student_id = #{studentId})
+        AND announcement_title LIKE #{pattern}
+    </select>
 
 </mapper>
