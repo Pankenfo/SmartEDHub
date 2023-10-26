@@ -2,13 +2,16 @@ package com.smartedhub_server.Controller;
 
 import cn.hutool.http.HttpResponse;
 import com.smartedhub_server.pojo.GeneralReturn;
+import com.smartedhub_server.pojo.QuestionInfo;
 import com.smartedhub_server.service.IGPTService;
 import io.github.asleepyfish.util.OpenAiUtils;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.core.parameters.P;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
@@ -71,15 +74,29 @@ public class GPTController {
         return image;
     }
 
+    @ApiOperation(value = "Teacher Generate Questions By AI")
+    @PostMapping("/teacherGenerateQuestionsByGPT")
+    public GeneralReturn teacherGenerateQuestionByGPT(@RequestBody QuestionInfo questionInfo, Principal principal) {
+        return gptService.teacherGenerateQuestionByGPT(questionInfo, principal);
+    }
+
     /**
      * Translation
      * @param text
      * @return
      */
-    //TODO: 做一个智能翻译功能
-//    @ApiOperation(value = "translation")
-//    @PostMapping("/translation")
-//
+    @ApiOperation(value = "translation")
+    @PostMapping("/translation")
+    public String translation(@RequestParam String text, @RequestParam String targetLanguage) {
+        return gptService.translation(text, targetLanguage);
+    }
+
+    @ApiOperation(value = "Revise an essay")
+    @PostMapping("/reviseAnEssay")
+    public String reviseAnEssay(@RequestParam String text) {
+        return gptService.reviseAnEssay(text);
+    }
+
 
 
 

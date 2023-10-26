@@ -34,7 +34,7 @@ public class Classroom implements Serializable {
     @TableField("classname")
     private String classname;
 
-    @TableField("teacher_username")
+    @TableField("username")
     @ApiModelProperty(value = "teacher_username", hidden = true)
     private String username;
 
