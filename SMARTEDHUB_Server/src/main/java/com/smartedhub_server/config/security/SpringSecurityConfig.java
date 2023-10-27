@@ -6,6 +6,7 @@ import com.smartedhub_server.config.security.filter.RestfulAccessDeniedHandler;
 import com.smartedhub_server.pojo.Admin;
 import com.smartedhub_server.pojo.Student;
 import com.smartedhub_server.pojo.Teacher;
+import com.smartedhub_server.service.IAdminService;
 import com.smartedhub_server.service.IStudentService;
 import com.smartedhub_server.service.ITeacherService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -34,6 +35,8 @@ public class SpringSecurityConfig extends WebSecurityConfigurerAdapter {
     private IStudentService studentService;
     @Autowired
     private ITeacherService teacherService;
+    @Autowired
+    private IAdminService adminService;
     @Autowired
     private RestAuthorizationEntryPoint restAuthorizationEntryPoint;
     @Autowired
@@ -81,12 +84,14 @@ public class SpringSecurityConfig extends WebSecurityConfigurerAdapter {
              */
             Teacher teacher = teacherService.getTeacherByUserName(userName);
             Student student = studentService.getStudentByUserName(userName);
-//            Admin admin = studentService.getAdminByUserName(userName);
+            Admin admin = adminService.getAdminByUserName(userName);
 
             if (null != student) {
                 return student;
             } else if (null != teacher) {
                 return teacher;
+            } else if (null != admin) {
+                return admin;
             }
             return null;
         };

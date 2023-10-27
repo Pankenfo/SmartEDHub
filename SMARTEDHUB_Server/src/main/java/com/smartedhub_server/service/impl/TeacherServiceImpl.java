@@ -21,6 +21,7 @@ import org.springframework.stereotype.Service;
 
 import javax.servlet.http.HttpServletRequest;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 //import sun.security.krb5.internal.PAData;
 
@@ -137,5 +138,30 @@ public class TeacherServiceImpl extends ServiceImpl<TeacherMapper, Teacher> impl
             return GeneralReturn.success("Update avatar successfully", url);
         }
         return GeneralReturn.error("Update avatar failed");
+    }
+
+    /**
+     * For admin get all teachers
+     * @return
+     */
+    @Override
+    public List<Teacher> getAllTeacher() {
+        List<Teacher> allTeacher = teacherMapper.getAllTeacher();
+        return allTeacher;
+    }
+
+    /**
+     * For admin modify teacher validity
+     * @param username
+     * @return
+     */
+    @Override
+    public GeneralReturn enableTeacher(String username) {
+
+        int result = teacherMapper.enableTeacher(username);
+        if (result == 1) {
+            return GeneralReturn.success("Enable Teacher.");
+        }
+        return GeneralReturn.error("Enable Teacher failed.");
     }
 }

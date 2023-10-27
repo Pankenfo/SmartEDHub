@@ -25,6 +25,7 @@ import org.springframework.stereotype.Service;
 import javax.jws.soap.SOAPBinding;
 import javax.servlet.http.HttpServletRequest;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 
 /**
@@ -149,6 +150,32 @@ public class StudentServiceImpl extends ServiceImpl<StudentMapper, Student> impl
             return GeneralReturn.success("Update avatar successfully", url);
         }
         return GeneralReturn.error("Update avatar failed");
+    }
+
+
+    /**
+     * For admin get all students
+     * @return
+     */
+    @Override
+    public List<Student> getAllStudent() {
+        List<Student> allStudent = studentMapper.getAllStudent();
+        return allStudent;
+
+    }
+
+    /**
+     * For admin enable student
+     * @param username
+     * @return
+     */
+    @Override
+    public GeneralReturn enableStudent(String username) {
+        int result = studentMapper.enableStudent(username);
+        if (result == 1) {
+            return GeneralReturn.success("Enable student");
+        }
+        return GeneralReturn.error("Enable student failed");
     }
 
 }

@@ -1,9 +1,6 @@
 package com.smartedhub_server.pojo;
 
-import com.baomidou.mybatisplus.annotation.IdType;
-import com.baomidou.mybatisplus.annotation.TableField;
-import com.baomidou.mybatisplus.annotation.TableId;
-import com.baomidou.mybatisplus.annotation.TableName;
+import com.baomidou.mybatisplus.annotation.*;
 import io.swagger.annotations.ApiModel;
 import io.swagger.annotations.ApiModelProperty;
 import lombok.Data;
@@ -68,6 +65,8 @@ public class Student implements Serializable, UserDetails {
     private String avatar;
 
     @ApiModelProperty(value = "is it valid or not")
+    @TableLogic(value = "1", delval = "0")
+    @TableField("validity")
     private boolean validity;
 
 
