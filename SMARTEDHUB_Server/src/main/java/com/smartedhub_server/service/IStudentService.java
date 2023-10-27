@@ -9,6 +9,7 @@ import com.smartedhub_server.pojo.UserLoginInfo;
 import org.springframework.security.core.Authentication;
 
 import javax.servlet.http.HttpServletRequest;
+import java.util.List;
 
 /**
  * <p>
@@ -52,4 +53,16 @@ public interface IStudentService extends IService<Student> {
      * @return
      */
     GeneralReturn updateStudentAvatar(String url, Integer userId, Authentication authentication);
+
+    /**
+     * For Admin get all comments
+     * @return
+     */
+    List<Student> getAllStudent();
+
+    /**
+     * For admin enable student
+     * @param username
+     */
+    GeneralReturn enableStudent(String username);
 }

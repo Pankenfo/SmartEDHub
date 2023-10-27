@@ -16,9 +16,34 @@
         <result column="validity" property="validity" />
     </resultMap>
 
+    <resultMap id="studentMap" type="com.smartedhub_server.pojo.Student">
+        <id column="student_id" property="studentId" />
+        <result column="real_name" property="realName" />
+        <result column="username" property="username" />
+        <result column="password" property="password" />
+        <result column="right_to_comment" property="rightToComment" />
+        <result column="mobile" property="mobile" />
+        <result column="gender" property="gender" />
+        <result column="email" property="email" />
+        <result column="location" property="location" />
+    </resultMap>
+
     <!-- 通用查询结果列 -->
     <sql id="Base_Column_List">
         student_id, real_name, username, password, right_to_comment, mobile, gender, email, location, validity
     </sql>
+
+    <!-- 根据主键查询 -->
+    <select id="getAllStudent" resultType="com.smartedhub_server.pojo.Student">
+        select *
+        from t_student
+    </select>
+
+    <update id="enableStudent">
+        update t_student
+        set validity = 1
+        where username = #{username}
+    </update>
+
 
 </mapper>

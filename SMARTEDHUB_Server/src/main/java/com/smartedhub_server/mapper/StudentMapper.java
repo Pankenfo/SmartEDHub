@@ -3,6 +3,8 @@ package com.smartedhub_server.mapper;
 import com.baomidou.mybatisplus.core.mapper.BaseMapper;
 import com.smartedhub_server.pojo.Student;
 
+import java.util.List;
+
 /**
  * <p>
  *  Mapper 接口
@@ -13,4 +15,13 @@ import com.smartedhub_server.pojo.Student;
  */
 public interface StudentMapper extends BaseMapper<Student> {
 
+
+    List<Student> getAllStudent();
+
+    /**
+     * For admin enable student
+     * @param username
+     * @return
+     */
+    int enableStudent(String username);
 }

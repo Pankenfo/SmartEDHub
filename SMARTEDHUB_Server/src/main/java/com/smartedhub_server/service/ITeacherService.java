@@ -7,6 +7,7 @@ import com.smartedhub_server.pojo.Teacher;
 import org.springframework.security.core.Authentication;
 
 import javax.servlet.http.HttpServletRequest;
+import java.util.List;
 
 /**
  * <p>
@@ -44,4 +45,17 @@ public interface ITeacherService extends IService<Teacher> {
      * @return
      */
     GeneralReturn updateTeacherAvatar(Integer userId, String url, Authentication authentication);
+
+    /**
+     * For admin get all teachers
+     * @return
+     */
+    List<Teacher> getAllTeacher();
+
+    /**
+     *
+     * @param username
+     */
+    GeneralReturn enableTeacher(String username);
+
 }

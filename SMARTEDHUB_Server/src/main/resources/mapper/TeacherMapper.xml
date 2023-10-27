@@ -20,4 +20,15 @@
         teacher_id, real_name, username, password, mobile, gender, email, location, validity
     </sql>
 
+    <select id="getAllTeacher" resultType="com.smartedhub_server.pojo.Teacher">
+        select *
+        from t_teacher
+    </select>
+
+    <update id="enableTeacher">
+        update t_teacher
+        set validity = 1
+        where username = #{username}
+    </update>
+
 </mapper>
