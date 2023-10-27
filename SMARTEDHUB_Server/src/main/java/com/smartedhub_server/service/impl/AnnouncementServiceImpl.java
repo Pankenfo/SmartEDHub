@@ -78,4 +78,10 @@ public class AnnouncementServiceImpl extends ServiceImpl<AnnouncementMapper, Ann
     public GeneralReturn ShowAnnouncementByStudentId(Integer studentId, String announcementTitle) {
         return GeneralReturn.success(announcementMapper.ShowAnnouncementByStudentId(studentId,announcementTitle));
     }
+
+    @Override
+    public GeneralReturn DeleteAnnouncement(Integer announcementId) {
+        announcementMapper.deleteById(announcementId);
+        return GeneralReturn.success("Detele successfully");
+    }
 }

@@ -28,7 +28,7 @@
                                 FROM
                                     smartedhub.t_question_class
                                 WHERE
-                                    class_id = #{classId} and question_title like #{pattern})
+                                    class_id = #{classId} and question_title like #{pattern}) AND validity = 1
     </select>
 
     <select id="GetAllQuestionByClassIdNopage" resultType="com.smartedhub_server.pojo.Question">
@@ -43,7 +43,7 @@
         FROM
         smartedhub.t_question_class
         WHERE
-        class_id = #{classId} and question_title like #{pattern})
+        class_id = #{classId} and question_title like #{pattern}) AND validity = 1
     </select>
 
     <update id="AddLike" >
@@ -70,7 +70,7 @@
                                                      FROM
                                                          t_student_class
                                                      WHERE
-                                                         student_id = #{studentId}))
+                                                         student_id = #{studentId})) AND validity = 1
     </select>
 
 

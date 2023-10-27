@@ -4,9 +4,11 @@ import com.baomidou.mybatisplus.core.conditions.query.LambdaQueryWrapper;
 import com.baomidou.mybatisplus.core.metadata.IPage;
 import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
+import com.smartedhub_server.mapper.QuestionCorrectionMapper;
 import com.smartedhub_server.mapper.QuestionMapper;
 import com.smartedhub_server.pojo.GeneralReturn;
 import com.smartedhub_server.pojo.Question;
+import com.smartedhub_server.pojo.QuestionCorrection;
 import com.smartedhub_server.service.IQuestionService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -27,6 +29,9 @@ public class QuestionServiceImpl extends ServiceImpl<QuestionMapper, Question> i
 
     @Autowired
     private QuestionMapper questionMapper;
+
+    @Autowired
+    private QuestionCorrectionMapper questionCorrectionMapper;
     @Override
     public GeneralReturn createQuestion(Question question) {
         question.setValidity(1);
@@ -100,6 +105,15 @@ public class QuestionServiceImpl extends ServiceImpl<QuestionMapper, Question> i
     @Override
     public GeneralReturn StudentGetAllQuestion(Integer studentId) {
         return GeneralReturn.success(questionMapper.StudentGetAllQuestion(studentId));
+    }
+
+    @Override
+    public GeneralReturn DeleteQuestion(Integer questionId) {
+        LambdaQueryWrapper<QuestionCorrection> wrapper = new LambdaQueryWrapper<>();
+        wrapper.eq(QuestionCorrection::getQuestionId,questionId);
+        questionCorrectionMapper.delete(wrapper);
+        questionMapper.deleteById(questionId);
+        return GeneralReturn.success("Delete successfully");
     }
 
 }

@@ -30,7 +30,7 @@
         smartedhub.t_student_class
         WHERE
         student_id = #{studentId})
-        AND announcement_title LIKE #{pattern}
+        AND announcement_title LIKE #{pattern} AND validity = 1
     </select>
 
 </mapper>

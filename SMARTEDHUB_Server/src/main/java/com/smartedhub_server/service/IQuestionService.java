@@ -32,4 +32,6 @@ public interface IQuestionService extends IService<Question> {
     GeneralReturn GetAllOrSpecificQuestionNoPage(String questionTitle);
 
     GeneralReturn StudentGetAllQuestion(Integer studentId);
+
+    GeneralReturn DeleteQuestion(Integer questionId);
 }

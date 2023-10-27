@@ -125,4 +125,10 @@ public class QuestionController {
         return iQuestionService.StudentGetAllQuestion(studentId);
     }
 
+    @DeleteMapping("deleteQuestion")
+    @ApiOperation("Delete question")
+    public GeneralReturn DeleteQuestion(@RequestParam(value = "questionId") Integer questionId){
+        return iQuestionService.DeleteQuestion(questionId);
+    }
+
 }

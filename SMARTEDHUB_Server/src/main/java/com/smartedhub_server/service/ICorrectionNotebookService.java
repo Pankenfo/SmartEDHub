@@ -2,6 +2,7 @@ package com.smartedhub_server.service;
 
 import com.baomidou.mybatisplus.extension.service.IService;
 import com.smartedhub_server.pojo.CorrectionNotebook;
+import com.smartedhub_server.pojo.GeneralReturn;
 
 /**
  * <p>
@@ -13,4 +14,11 @@ import com.smartedhub_server.pojo.CorrectionNotebook;
  */
 public interface ICorrectionNotebookService extends IService<CorrectionNotebook> {
 
+    public void CreateCorrection(String username);
+
+    GeneralReturn AddToCorrection(int questionId, String username);
+
+    GeneralReturn ListCorrectionNote(String username);
+
+    GeneralReturn CancelFromCorrection(int questionId, String username);
 }

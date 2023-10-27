@@ -21,6 +21,8 @@ public interface IAnnouncementService extends IService<Announcement> {
     GeneralReturn ShowAllOrSpecificAnnouncementNoPage(String announcementTitle, String announcementDetail);
 
     GeneralReturn ShowAnnouncementByStudentId(Integer studentId,  String announcementTitle);
+
+    GeneralReturn DeleteAnnouncement(Integer announcementId);
 }
 
 
