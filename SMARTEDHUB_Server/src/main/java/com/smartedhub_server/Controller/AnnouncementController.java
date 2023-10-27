@@ -59,6 +59,13 @@ public class AnnouncementController {
         return iAnnouncementService.ShowAnnouncementByStudentId(studentId,announcementTitle);
     }
 
+    @GetMapping("/showAnnouncementByTeacherId")
+    @ApiOperation("Show all or specific announcement by teacherId")
+    public GeneralReturn ShowAnnouncementByTeacherId(@RequestParam(value = "teacherId") Integer teacherId,
+                                                     @RequestParam(value = "announcementTitle", required = false) String announcementTitle){
+        return iAnnouncementService.ShowAnnouncementByTeacherId(teacherId,announcementTitle);
+    }
+
     @DeleteMapping("/deleteAnnouncement")
     @ApiOperation("Delete announcement")
     public GeneralReturn DeleteAnnouncement(@RequestParam(value = "announcementId") Integer announcementId){

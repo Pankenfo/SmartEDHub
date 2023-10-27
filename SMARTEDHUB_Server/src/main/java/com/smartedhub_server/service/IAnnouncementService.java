@@ -23,6 +23,8 @@ public interface IAnnouncementService extends IService<Announcement> {
     GeneralReturn ShowAnnouncementByStudentId(Integer studentId,  String announcementTitle);
 
     GeneralReturn DeleteAnnouncement(Integer announcementId);
+
+    GeneralReturn ShowAnnouncementByTeacherId(Integer teacherId, String announcementTitle);
 }
 
 

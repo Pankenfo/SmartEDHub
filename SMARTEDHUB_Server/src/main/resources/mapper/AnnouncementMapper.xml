@@ -33,4 +33,16 @@
         AND announcement_title LIKE #{pattern} AND validity = 1
     </select>
 
+    <select id="ShowAnnouncementByTeacherId" resultType="com.smartedhub_server.pojo.Announcement">
+        <bind name="pattern" value="'%' + announcementTitle + '%'" />
+        SELECT
+        *
+        FROM
+        smartedhub.t_announcement
+        WHERE
+        teacher_id = #{teacherId} AND announcement_title LIKE #{pattern} AND validity = 1
+    </select>
+
+
+
 </mapper>

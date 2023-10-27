@@ -16,4 +16,6 @@ import java.util.List;
  */
 public interface AnnouncementMapper extends BaseMapper<Announcement> {
     List<Announcement> ShowAnnouncementByStudentId(Integer studentId, String announcementTitle);
+    List<Announcement> ShowAnnouncementByTeacherId(Integer teacherId, String announcementTitle);
+
 }
