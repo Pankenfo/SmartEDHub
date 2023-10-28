@@ -137,6 +137,7 @@ public class SpringSecurityConfig extends WebSecurityConfigurerAdapter {
                 "/logout",
                 "/register",
                 "/admin/adminLogin",
+                "/registerAdmin",
                 "/studentLogin",
                 "/studentRegister",
                 "/teacherLogin",
@@ -151,8 +152,7 @@ public class SpringSecurityConfig extends WebSecurityConfigurerAdapter {
                 "/localhost:8085/doc.html",
                 "/swagger-ui.html",
                 "/swagger-resources/**",
-                "/v2/api-docs/**",
-                "/registerAdmin"
+                "/v2/api-docs/**"
 
         );
     }
