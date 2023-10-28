@@ -136,6 +136,7 @@ public class SpringSecurityConfig extends WebSecurityConfigurerAdapter {
                 "/login",
                 "/logout",
                 "/register",
+                "/admin/adminLogin",
                 "/studentLogin",
                 "/studentRegister",
                 "/teacherLogin",

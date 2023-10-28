@@ -29,8 +29,6 @@ import java.util.List;
 @Api(tags = "GPT Controller")
 public class GPTController {
 
-
-
     @Autowired
     private IGPTService gptService;
 
@@ -39,7 +37,6 @@ public class GPTController {
      * @param text
      * @return
      */
-    //TODO: 改成我们写好语句然后封装发给GPT，前端只需要传输选择题的内容
     @ApiOperation(value = "generateMCQ")
     @PostMapping("/generateMCQ")
     public GeneralReturn sendTextToGPT(@RequestParam String text, Principal principal) {
@@ -66,7 +63,6 @@ public class GPTController {
      * @param text
      * @return
      */
-    //TODO: 可以改这个接口拿来做智能生成头像的功能！！
     @ApiOperation(value = "generateImages")
     @PostMapping("/generateImagesByGPT")
     public List<String> generateImagesByGPT(@RequestParam String text) {
