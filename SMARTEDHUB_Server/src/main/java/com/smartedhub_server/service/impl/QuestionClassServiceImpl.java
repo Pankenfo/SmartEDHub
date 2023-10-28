@@ -1,9 +1,11 @@
 package com.smartedhub_server.service.impl;
 
+import com.baomidou.mybatisplus.core.conditions.query.LambdaQueryWrapper;
 import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
 import com.smartedhub_server.mapper.QuestionClassMapper;
 import com.smartedhub_server.pojo.GeneralReturn;
 import com.smartedhub_server.pojo.QuestionClass;
+import com.smartedhub_server.pojo.QuestionCorrection;
 import com.smartedhub_server.service.IQuestionClassService;
 import io.swagger.annotations.ApiOperation;
 import org.springframework.beans.factory.annotation.Autowired;

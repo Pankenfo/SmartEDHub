@@ -73,5 +73,33 @@
                                                          student_id = #{studentId})) AND validity = 1
     </select>
 
+    <select id="QuestionGetTeacher" resultType="String">
+        SELECT
+            c.username
+        FROM
+            t_classroom c,
+            t_question_class qc,
+            t_student_class sc
+        WHERE
+            c.class_id = qc.class_id
+          AND qc.class_id = sc.class_id
+          AND sc.student_id = #{studentId}
+          AND qc.question_id = #{questionId}
+    </select>
+
+    <select id="QuestionGetClassName" resultType="String">
+        SELECT
+            c.classname
+        FROM
+            t_classroom c,
+            t_question_class qc,
+            t_student_class sc
+        WHERE
+            c.class_id = qc.class_id
+          AND qc.class_id = sc.class_id
+          AND sc.student_id = #{studentId}
+          AND qc.question_id = #{questionId}
+    </select>
+
 
 </mapper>

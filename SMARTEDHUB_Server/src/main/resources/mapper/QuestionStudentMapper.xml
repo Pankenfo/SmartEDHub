@@ -7,12 +7,16 @@
         <id column="question_student_id" property="questionStudentId" />
         <result column="question_id" property="questionId" />
         <result column="student_id" property="studentId" />
+        <result column="teacher_username" property="teacherUsername" />
+        <result column="classname" property="classname" />
+        <result column="question_answer" property="questionAnswer" />
+        <result column="mark" property="mark" />
         <result column="validity" property="validity" />
     </resultMap>
 
     <!-- 通用查询结果列 -->
     <sql id="Base_Column_List">
-        question_student_id, question_id, student_id, validity
+        question_student_id, question_id, student_id, teacher_username, classname, question_answer, mark, validity
     </sql>
 
 </mapper>

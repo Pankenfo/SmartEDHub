@@ -34,4 +34,12 @@ public interface IQuestionService extends IService<Question> {
     GeneralReturn StudentGetAllQuestion(Integer studentId);
 
     GeneralReturn DeleteQuestion(Integer questionId);
+
+    GeneralReturn StudentAnswer(String answer, Integer studentId, Integer questionId);
+
+    GeneralReturn TeacherMark(Integer questionStudentId, Integer mark);
+
+    GeneralReturn StudentGetAnsweredQuestion(Integer studentId);
+
+    GeneralReturn TeacherGetAnsweredList(String teacherUsername);
 }

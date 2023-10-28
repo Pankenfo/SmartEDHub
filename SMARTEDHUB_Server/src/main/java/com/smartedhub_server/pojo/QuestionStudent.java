@@ -37,6 +37,18 @@ public class QuestionStudent implements Serializable {
     @TableField("student_id")
     private Integer studentId;
 
+    @TableField("teacher_username")
+    private String teacherUsername;
+
+    @TableField("classname")
+    private String classname;
+
+    @TableField("question_answer")
+    private String questionAnswer;
+
+    @TableField("mark")
+    private Integer mark;
+
     private Integer validity;
 
 

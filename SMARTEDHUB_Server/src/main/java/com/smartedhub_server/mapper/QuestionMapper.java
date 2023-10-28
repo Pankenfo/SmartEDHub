@@ -4,6 +4,7 @@ import com.baomidou.mybatisplus.core.mapper.BaseMapper;
 import com.baomidou.mybatisplus.core.metadata.IPage;
 import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 import com.smartedhub_server.pojo.Question;
+import io.swagger.models.auth.In;
 import org.apache.ibatis.annotations.Mapper;
 
 import java.util.List;
@@ -30,4 +31,9 @@ public interface QuestionMapper extends BaseMapper<Question> {
     void CancelLike(int questionId);
 
     List<Question> StudentGetAllQuestion(Integer studentId);
+
+    String QuestionGetTeacher(Integer studentId, Integer questionId);
+
+    String QuestionGetClassName(Integer studentId, Integer questionId);
+
 }

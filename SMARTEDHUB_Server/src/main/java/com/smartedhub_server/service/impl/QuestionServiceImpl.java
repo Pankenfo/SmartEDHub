@@ -6,9 +6,8 @@ import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
 import com.smartedhub_server.mapper.QuestionCorrectionMapper;
 import com.smartedhub_server.mapper.QuestionMapper;
-import com.smartedhub_server.pojo.GeneralReturn;
-import com.smartedhub_server.pojo.Question;
-import com.smartedhub_server.pojo.QuestionCorrection;
+import com.smartedhub_server.mapper.QuestionStudentMapper;
+import com.smartedhub_server.pojo.*;
 import com.smartedhub_server.service.IQuestionService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -32,6 +31,9 @@ public class QuestionServiceImpl extends ServiceImpl<QuestionMapper, Question> i
 
     @Autowired
     private QuestionCorrectionMapper questionCorrectionMapper;
+
+    @Autowired
+    private QuestionStudentMapper questionStudentMapper;
     @Override
     public GeneralReturn createQuestion(Question question) {
         question.setValidity(1);
@@ -114,6 +116,43 @@ public class QuestionServiceImpl extends ServiceImpl<QuestionMapper, Question> i
         questionCorrectionMapper.delete(wrapper);
         questionMapper.deleteById(questionId);
         return GeneralReturn.success("Delete successfully");
+    }
+
+    @Override
+    public GeneralReturn StudentAnswer(String answer, Integer studentId, Integer questionId) {
+        QuestionStudent questionStudent = new QuestionStudent();
+        questionStudent.setQuestionId(questionId);
+        questionStudent.setStudentId(studentId);
+        questionStudent.setQuestionAnswer(answer);
+        String a = questionMapper.QuestionGetClassName(studentId,questionId);
+        questionStudent.setClassname(questionMapper.QuestionGetClassName(studentId,questionId));
+        questionStudent.setTeacherUsername(questionMapper.QuestionGetTeacher(studentId,questionId));
+        questionStudent.setValidity(1);
+        questionStudentMapper.insert(questionStudent);
+        return GeneralReturn.success("Submit successfylly");
+    }
+
+    @Override
+    public GeneralReturn TeacherMark(Integer questionStudentId, Integer mark) {
+        QuestionStudent questionStudent = new QuestionStudent();
+        questionStudent.setQuestionStudentId(questionStudentId);
+        questionStudent.setMark(mark);
+        questionStudentMapper.updateById(questionStudent);
+        return GeneralReturn.success("Mark successfully");
+    }
+
+    @Override
+    public GeneralReturn StudentGetAnsweredQuestion(Integer studentId) {
+        LambdaQueryWrapper<QuestionStudent> wrapper = new LambdaQueryWrapper<>();
+        wrapper.eq(QuestionStudent::getStudentId,studentId);
+        return GeneralReturn.success(questionStudentMapper.selectList(wrapper));
+    }
+
+    @Override
+    public GeneralReturn TeacherGetAnsweredList(String teacherUsername) {
+        LambdaQueryWrapper<QuestionStudent> wrapper = new LambdaQueryWrapper<>();
+        wrapper.eq(QuestionStudent::getTeacherUsername,teacherUsername);
+        return GeneralReturn.success(questionStudentMapper.selectList(wrapper));
     }
 
 }

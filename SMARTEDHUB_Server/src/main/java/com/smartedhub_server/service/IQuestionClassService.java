@@ -15,4 +15,5 @@ import com.smartedhub_server.pojo.QuestionClass;
 public interface IQuestionClassService extends IService<QuestionClass> {
 
     GeneralReturn AllocateQuestion(Integer questionId, Integer classId);
+
 }

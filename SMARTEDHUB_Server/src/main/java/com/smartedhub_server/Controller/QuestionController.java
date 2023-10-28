@@ -131,4 +131,31 @@ public class QuestionController {
         return iQuestionService.DeleteQuestion(questionId);
     }
 
+    @PostMapping("/studentAnswer")
+    @ApiOperation("Student answer question and submit to teacher")
+    public GeneralReturn StudentAnswer(@RequestParam(value = "answer") String answer,
+                                       @RequestParam(value = "studentId") Integer studentId,
+                                       @RequestParam(value = "questionId") Integer questionId){
+        return iQuestionService.StudentAnswer(answer,studentId,questionId);
+    }
+
+    @GetMapping("/studentGetAnsweredList")
+    @ApiOperation("Student get answered question list")
+    public GeneralReturn StudentGetAnsweredQuestion(@RequestParam(value = "studentId") Integer studentId){
+        return iQuestionService.StudentGetAnsweredQuestion(studentId);
+    }
+
+    @PutMapping("/teacherMark")
+    @ApiOperation("Teacher mark answer")
+    public GeneralReturn TeacherMark(@RequestParam(value = "question_student_id") Integer question_student_id,
+                                     @RequestParam(value = "mark") Integer mark){
+        return iQuestionService.TeacherMark(question_student_id,mark);
+    }
+
+    @GetMapping("/teacherGetAnsweredList")
+    @ApiOperation("Teacher get answered question list")
+    public GeneralReturn TeacherGetAnsweredList(@RequestParam(value = "teacher_username") String teacher_username){
+        return iQuestionService.TeacherGetAnsweredList(teacher_username);
+    }
+
 }
