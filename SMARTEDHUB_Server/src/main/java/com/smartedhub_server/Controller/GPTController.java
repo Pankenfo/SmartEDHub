@@ -83,13 +83,13 @@ public class GPTController {
      */
     @ApiOperation(value = "translation")
     @PostMapping("/translation")
-    public String translation(@RequestParam String text, @RequestParam String targetLanguage) {
+    public GeneralReturn translation(@RequestParam String text, @RequestParam String targetLanguage) {
         return gptService.translation(text, targetLanguage);
     }
 
     @ApiOperation(value = "Revise an essay")
     @PostMapping("/reviseAnEssay")
-    public String reviseAnEssay(@RequestParam String text) {
+    public GeneralReturn reviseAnEssay(@RequestParam String text) {
         return gptService.reviseAnEssay(text);
     }
 

@@ -28,12 +28,12 @@ public interface IGPTService {
      * @param targetLanguage
      * @return
      */
-    String translation(String text, String targetLanguage);
+    GeneralReturn translation(String text, String targetLanguage);
 
     /**
      * For user revise an essay
      * @param text
      * @return
      */
-    String reviseAnEssay(String text);
+    GeneralReturn reviseAnEssay(String text);
 }

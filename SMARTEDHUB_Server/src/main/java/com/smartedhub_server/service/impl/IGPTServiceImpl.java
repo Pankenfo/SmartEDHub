@@ -86,7 +86,7 @@ public class IGPTServiceImpl implements IGPTService {
      * @return
      */
     @Override
-    public String translation(String text, String targetLanguage) {
+    public GeneralReturn translation(String text, String targetLanguage) {
 
         String prompt = "Please translate this sentence into " + targetLanguage + ": " + text;
         String GPTReturn = connectToGPT(prompt);
@@ -94,7 +94,7 @@ public class IGPTServiceImpl implements IGPTService {
         GPTResponse gptResponse = JSONUtil.toBean(GPTReturn, GPTResponse.class);
 
         String messageByGPT = gptResponse.getChoices().get(0).getMessage().getContent();
-        return messageByGPT;
+        return GeneralReturn.success(messageByGPT);
     }
 
     /**
@@ -103,7 +103,7 @@ public class IGPTServiceImpl implements IGPTService {
      * @return
      */
     @Override
-    public String reviseAnEssay(String text) {
+    public GeneralReturn reviseAnEssay(String text) {
         String prompt = "Please fix the grammar of this sentence or essay: " + text;
         String GPTReturn = connectToGPT(prompt);
 
@@ -111,7 +111,7 @@ public class IGPTServiceImpl implements IGPTService {
 
         String messageByGPT = gptResponse.getChoices().get(0).getMessage().getContent();
 
-        return messageByGPT;
+        return GeneralReturn.success(messageByGPT);
     }
 
     public GeneralReturn teacherGetQuestion(QuestionInfo questionInfo, String username) {
