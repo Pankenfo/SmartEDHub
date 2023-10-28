@@ -104,7 +104,7 @@ public class IGPTServiceImpl implements IGPTService {
      */
     @Override
     public String reviseAnEssay(String text) {
-        String prompt = "Please revise this essay: " + text;
+        String prompt = "Please fix the grammar of this sentence or essay: " + text;
         String GPTReturn = connectToGPT(prompt);
 
         GPTResponse gptResponse = JSONUtil.toBean(GPTReturn, GPTResponse.class);
