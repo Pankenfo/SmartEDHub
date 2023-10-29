@@ -155,4 +155,12 @@ public class QuestionServiceImpl extends ServiceImpl<QuestionMapper, Question> i
         return GeneralReturn.success(questionStudentMapper.selectList(wrapper));
     }
 
+    @Override
+    public Integer StudetGetMark(Integer studentId, Integer questionId) {
+        LambdaQueryWrapper<QuestionStudent> wrapper = new LambdaQueryWrapper<>();
+        wrapper.eq(QuestionStudent::getStudentId,studentId).and(i->i.eq(QuestionStudent::getQuestionId,questionId));
+        return questionStudentMapper.selectOne(wrapper).getMark();
+
+    }
+
 }
