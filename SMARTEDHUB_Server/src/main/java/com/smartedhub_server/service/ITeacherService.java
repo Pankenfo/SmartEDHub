@@ -44,7 +44,7 @@ public interface ITeacherService extends IService<Teacher> {
      * @param authentication
      * @return
      */
-    GeneralReturn updateTeacherAvatar(Integer userId, String url, Authentication authentication);
+    GeneralReturn updateTeacherAvatar(String currentUsername, String url, Authentication authentication);
 
     /**
      * For admin get all teachers

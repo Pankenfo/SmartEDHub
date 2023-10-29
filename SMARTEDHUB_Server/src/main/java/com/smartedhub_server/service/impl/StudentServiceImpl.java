@@ -148,14 +148,14 @@ public class StudentServiceImpl extends ServiceImpl<StudentMapper, Student> impl
     /**
      * Update student avatar
      * @param url
-     * @param userId
+     * @param currentUsername
      * @param authentication
      * @return
      */
     @Override
-    public GeneralReturn updateStudentAvatar(String url, Integer userId, Authentication authentication) {
+    public GeneralReturn updateStudentAvatar(String url, String currentUsername, Authentication authentication) {
 
-        Student student = studentMapper.selectById(userId);
+        Student student = studentMapper.selectOne(new QueryWrapper<Student>().eq("username", currentUsername).eq("validity", true));
         student.setAvatar(url);
         int result = studentMapper.updateById(student);
         if (result == 1) {

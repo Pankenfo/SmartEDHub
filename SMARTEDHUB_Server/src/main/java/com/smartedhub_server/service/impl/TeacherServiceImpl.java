@@ -126,9 +126,9 @@ public class TeacherServiceImpl extends ServiceImpl<TeacherMapper, Teacher> impl
      * @return
      */
     @Override
-    public GeneralReturn updateTeacherAvatar(Integer userId, String url, Authentication authentication) {
+    public GeneralReturn updateTeacherAvatar(String currentUsername, String url, Authentication authentication) {
 
-        Teacher teacher = teacherMapper.selectById(userId);
+        Teacher teacher = teacherMapper.getTeacherByUserNameIgnoreValidity(currentUsername);
         teacher.setAvatar(url);
         int result = teacherMapper.updateById(teacher);
         if (result == 1) {

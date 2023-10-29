@@ -13,6 +13,8 @@ import org.springframework.security.core.Authentication;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
 
+import java.security.Principal;
+
 /**
  * <p>
  *  前端控制器
@@ -31,12 +33,19 @@ public class StudentController {
     //TODO: 头像
     @ApiOperation(value = "updateAvatar")
     @PostMapping("/updateAvatar")
-    public GeneralReturn updateAvatar(@RequestBody MultipartFile multipartFile, @RequestParam Integer userId, Authentication authentication) {
-        //Upload file by FastDFS
-        String[] uploadPath = FastDFSUtils.upload(multipartFile);
-        //get the url
-        String url = FastDFSUtils.getTrackerUrl() + uploadPath[0] + "/" + uploadPath[1];
-        return studentService.updateStudentAvatar(url, userId, authentication);
+    public GeneralReturn updateAvatar(@RequestBody MultipartFile multipartFile, Principal principal, Authentication authentication) {
+
+        if (principal == null){
+            return GeneralReturn.error("Please login first");
+        } else {
+            String currentUsername = principal.getName();
+            //Upload file by FastDFS
+            String[] uploadPath = FastDFSUtils.upload(multipartFile);
+            //get the url
+            String url = FastDFSUtils.getTrackerUrl() + uploadPath[0] + "/" + uploadPath[1];
+            return studentService.updateStudentAvatar(url, currentUsername, authentication);
+        }
+
     }
 
 

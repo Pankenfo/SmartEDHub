@@ -50,11 +50,11 @@ public interface IStudentService extends IService<Student> {
     /**
      * For student update student avatar
      * @param url
-     * @param userId
+     * @param currentUsername
      * @param authentication
      * @return
      */
-    GeneralReturn updateStudentAvatar(String url, Integer userId, Authentication authentication);
+    GeneralReturn updateStudentAvatar(String url, String currentUsername, Authentication authentication);
 
     /**
      * For Admin get all comments
