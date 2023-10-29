@@ -4,6 +4,7 @@ package com.smartedhub_server.Controller;
 import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
 import com.smartedhub_server.pojo.GeneralReturn;
 import com.smartedhub_server.pojo.Question;
+import com.smartedhub_server.pojo.QuestionStudent;
 import com.smartedhub_server.pojo.Student;
 import com.smartedhub_server.service.IQuestionClassService;
 import com.smartedhub_server.service.IQuestionService;
@@ -156,6 +157,13 @@ public class QuestionController {
     @ApiOperation("Teacher get answered question list")
     public GeneralReturn TeacherGetAnsweredList(@RequestParam(value = "teacher_username") String teacher_username){
         return iQuestionService.TeacherGetAnsweredList(teacher_username);
+    }
+
+    @GetMapping("studetGetMark")
+    @ApiOperation("studet get question amrk")
+    public Integer StudetGetMark(@RequestParam(value = "studentId") Integer studentId,
+                                              @RequestParam(value = "questionId") Integer questionId){
+        return iQuestionService.StudetGetMark(studentId,questionId);
     }
 
 }

@@ -3,6 +3,9 @@ package com.smartedhub_server.service;
 import com.baomidou.mybatisplus.extension.service.IService;
 import com.smartedhub_server.pojo.GeneralReturn;
 import com.smartedhub_server.pojo.Question;
+import com.smartedhub_server.pojo.QuestionStudent;
+
+import java.util.List;
 
 /**
  * <p>
@@ -42,4 +45,6 @@ public interface IQuestionService extends IService<Question> {
     GeneralReturn StudentGetAnsweredQuestion(Integer studentId);
 
     GeneralReturn TeacherGetAnsweredList(String teacherUsername);
+
+    Integer StudetGetMark(Integer studentId, Integer questionId);
 }
