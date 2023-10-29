@@ -10,7 +10,7 @@ import org.springframework.web.bind.annotation.*;
 
 /**
  * <p>
- * The notebook that saves the question that student favourite 前端控制器
+ * The notebook that saves the question that student favourite
  * </p>
  *
  * @author Junxian Cai
@@ -35,7 +35,6 @@ public class MyFavouriteController {
     public GeneralReturn CancelFavourite(@RequestParam(value = "questionId") int questionId,
                                          @RequestParam(value = "username") String username){
         return iMyFavouriteService.CancelFavourite(questionId,username);
-
     }
 
     @GetMapping("/listMyFavourite")

@@ -26,4 +26,11 @@ public interface TeacherMapper extends BaseMapper<Teacher> {
      * @param username
      */
     int enableTeacher(String username);
+
+    /**
+     * For admin get teacher by username
+     * @param userName
+     * @return
+     */
+    Teacher getTeacherByUserNameIgnoreValidity(String userName);
 }

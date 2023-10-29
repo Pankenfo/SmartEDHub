@@ -28,6 +28,8 @@ public interface IStudentService extends IService<Student> {
      */
     Student getStudentByUserName(String userName);
 
+    Student getStudentByUserNameIgnoreValidity(String userName);
+
     int getCurrentStudentId() throws ParamsException;
 
     /**

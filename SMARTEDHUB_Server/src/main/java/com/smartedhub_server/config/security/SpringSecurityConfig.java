@@ -82,8 +82,8 @@ public class SpringSecurityConfig extends WebSecurityConfigurerAdapter {
              * 最后，请确保您在配置Spring Security时正确处理了这两种用户的权限和角色。
              *
              */
-            Teacher teacher = teacherService.getTeacherByUserName(userName);
-            Student student = studentService.getStudentByUserName(userName);
+            Teacher teacher = teacherService.getTeacherByUserNameIgnoreValidity(userName);
+            Student student = studentService.getStudentByUserNameIgnoreValidity(userName);
             Admin admin = adminService.getAdminByUserName(userName);
 
             if (null != student) {

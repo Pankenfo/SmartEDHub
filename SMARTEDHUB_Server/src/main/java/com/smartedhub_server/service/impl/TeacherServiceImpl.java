@@ -164,4 +164,14 @@ public class TeacherServiceImpl extends ServiceImpl<TeacherMapper, Teacher> impl
         }
         return GeneralReturn.error("Enable Teacher failed.");
     }
+
+    /**
+     * For admin get teacher by username
+     * @param userName
+     * @return
+     */
+    @Override
+    public Teacher getTeacherByUserNameIgnoreValidity(String userName) {
+        return teacherMapper.getTeacherByUserNameIgnoreValidity(userName);
+    }
 }

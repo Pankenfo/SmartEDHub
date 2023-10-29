@@ -108,7 +108,7 @@ public class AdminController {
     @PostMapping("/enableUser")
     public GeneralReturn enableUser(@RequestParam Integer userType, @RequestParam String username) {
         if (userType == 1) {
-            studentService.enableStudent(username);
+            return studentService.enableStudent(username);
         } else if (userType == 2) {
             return teacherService.enableTeacher(username);
         }

@@ -63,6 +63,17 @@ public class StudentServiceImpl extends ServiceImpl<StudentMapper, Student> impl
     }
 
     /**
+     * For admin get student by username
+     * @param userName
+     * @return
+     */
+    @Override
+    public Student getStudentByUserNameIgnoreValidity(String userName) {
+
+        return studentMapper.getStudentByUserNameIgnoreValidity(userName);
+    }
+
+    /**
      * Get current studentId
      * @return
      */
@@ -119,7 +130,7 @@ public class StudentServiceImpl extends ServiceImpl<StudentMapper, Student> impl
             return GeneralReturn.error("Username or password is wrong");
         }
         if (!userDetails.isEnabled()) {
-            return GeneralReturn.error("Current account is disabled");
+            return GeneralReturn.error("Current account is disabled, please contact our service team");
         }
         UsernamePasswordAuthenticationToken authenticationToken = new UsernamePasswordAuthenticationToken(userDetails
                 ,null,userDetails.getAuthorities());

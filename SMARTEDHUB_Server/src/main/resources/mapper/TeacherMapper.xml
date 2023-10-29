@@ -31,4 +31,10 @@
         where username = #{username}
     </update>
 
+    <select id="getTeacherByUserNameIgnoreValidity" resultType="com.smartedhub_server.pojo.Teacher">
+        select *
+        from t_teacher
+        where username = #{userName}
+    </select>
+
 </mapper>

@@ -58,4 +58,10 @@ public interface ITeacherService extends IService<Teacher> {
      */
     GeneralReturn enableTeacher(String username);
 
+    /**
+     * For admin get teacher by username
+     * @param userName
+     * @return
+     */
+    Teacher getTeacherByUserNameIgnoreValidity(String userName);
 }

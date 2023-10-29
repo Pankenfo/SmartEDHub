@@ -24,4 +24,11 @@ public interface StudentMapper extends BaseMapper<Student> {
      * @return
      */
     int enableStudent(String username);
+
+    /**
+     * For admin get student by username
+     * @param userName
+     * @return
+     */
+    Student getStudentByUserNameIgnoreValidity(String userName);
 }
